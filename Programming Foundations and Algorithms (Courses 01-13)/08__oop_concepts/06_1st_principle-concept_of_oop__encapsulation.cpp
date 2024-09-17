@@ -1,0 +1,5 @@
+/*
+Encapsulation of functions members and datamembers inside class or object
+ So you cant reach any thing of a real life object or any member unless you used its object 
+ and the data is hidded the data from being reached from any one
+ */
