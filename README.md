@@ -7,8 +7,8 @@
 
 <p align="center">
   Welcome to the <b>Programming Foundations and Algorithms</b> repository! This repository documents my journey through a 2-year programming curriculum, designed to provide a solid foundation in problem-solving, algorithms, and object-oriented programming (OOP) using <b>C</b> and <b>C++</b>.
+  <br/>
 </p>
-
 ---
 
 ## 📚 Overview
@@ -155,6 +155,10 @@ This repository is licensed under the MIT License. See the [LICENSE](./LICENSE) 
 ---
 
 ## 🎯 Visual Roadmap
+
+
+For more about the school, visit <a href="https://programmingadvices.com/" target="_blank">Programming Advices</a>.
+
 
 Below is a visual representation of the full roadmap from **Foundations Level 1** to **Full Stack Development**:
 
