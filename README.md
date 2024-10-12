@@ -6,7 +6,7 @@
 <h1 align="center">Programming Foundations and Algorithms</h1>
 
 <p align="center">
-  Welcome to the <b>Programming Foundations and Algorithms</b> repository! This repository documents my journey through a 2-year programming curriculum, designed to provide a solid foundation in problem-solving, algorithms, and object-oriented programming (OOP) using <b>C</b> and <b>C++</b> <b>C#</b>.
+  Welcome to the <b>Programming Foundations and Algorithms</b> repository! This repository documents my journey through a 2-year programming curriculum, designed to provide a solid foundation in problem-solving, algorithms, and object-oriented programming (OOP) using <b>C</b>, <b>C++</b> and <b>C#</b>.
   <br/>
 </p>
 ---
