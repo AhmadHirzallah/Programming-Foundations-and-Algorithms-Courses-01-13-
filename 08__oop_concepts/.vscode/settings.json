@@ -44,7 +44,14 @@
         "numbers": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "charconv": "cpp",
+        "format": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "span": "cpp",
+        "text_encoding": "cpp",
+        "variant": "cpp"
     },
     "C_Cpp.autocompleteAddParentheses": true,
     "C_Cpp.errorSquiggles": "disabled"

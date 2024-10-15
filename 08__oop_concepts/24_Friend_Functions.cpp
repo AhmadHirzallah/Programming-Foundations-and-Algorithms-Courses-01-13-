@@ -18,7 +18,7 @@ public:
 		var2 = 20;
 		var3 = 30;
 	}
-	friend int ft_calc_sum(clsA A1);
+	friend int	ft_calc_sum(clsA A1);
 	friend int	ft_calc_sum(clsA A1, clsA A2);
 	friend class	clsB;
 };
