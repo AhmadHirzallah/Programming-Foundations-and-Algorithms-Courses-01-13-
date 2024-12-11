@@ -408,7 +408,8 @@ class	StringUtils
 				enum	e_split_type {MULTI, SINGLE, DEFAULT};
 
 				static std::vector <std::string>	splitByDelim(const std::string &str,
-							const std::string &delemiters = " \t\n\r|,;.:", e_split_type split_type = e_split_type::DEFAULT)
+																const std::string &delemiters = " \t\n\r|,;.:",
+																e_split_type split_type = e_split_type::DEFAULT)
 				{
 					if (split_type == e_split_type::SINGLE)
 						return (splitSingleChrDelim(str, delemiters));
@@ -625,7 +626,8 @@ class	StringUtils
 				std::string	_value;
 	
 
-				static std::vector <std::string>	splitMultiChrsDelim(const std::string &str, const std::string &delemiters = " \t\n\r|,;.:")
+				static std::vector <std::string>	splitMultiChrsDelim(const std::string &str,
+																		const std::string &delemiters = " \t\n\r|,;.:")
 				{
 					std::size_t							last_pos = 0;
 					std::size_t							delim_pos = 0;
@@ -644,18 +646,19 @@ class	StringUtils
 
 					// Add the last part of the string after the last delimiter
 					word = str.substr(last_pos);
-					if (!word.empty())
+					if (!word.empty() && word.find(delemiters) == std::string::npos)
 						splitted_v.emplace_back(word);
 
 					return (splitted_v);
 				}
 
 
-				static std::vector <std::string>	splitSingleChrDelim(const std::string &str, const std::string &delemiters = " \t\n\r|,;.:")
+				static std::vector <std::string>	splitSingleChrDelim(const std::string &str,
+																		const std::string &delemiters = " \t\n\r|,;.:")
 				{
-					std::size_t							last_pos = 0;
-					std::size_t							delim_pos = 0;
-					std::string						word;
+					std::size_t								last_pos = 0;
+					std::size_t								delim_pos = 0;
+					std::string								word;
 					std::vector <std::string>	splitted_v;
 					
 					// Single character delimiters (default behavior with find_first_of)
@@ -670,7 +673,7 @@ class	StringUtils
 						
 					// Add the last part of the string after the last delimiter
 					word = str.substr(last_pos);
-					if (!word.empty())
+					if (!word.empty() && word.find(delemiters) == std::string::npos)
 						splitted_v.emplace_back(word);
 
 					return (splitted_v);

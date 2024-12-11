@@ -9,9 +9,23 @@ using namespace std;
 int main()
 
 {
+    CoreUtilities::sRand();
+    // clsMainScreen::showMainMenu();
+    DateUtils::printYearCalendar(2024);
 
-    clsMainScreen::showMainMenu();
 
+
+
+
+
+
+
+
+    // cout << CoreUtilities::generateRandomChr(CoreUtilities::e_char_type::CAPITAL) << endl;
+    // cout << CoreUtilities::generateRandomChr(CoreUtilities::e_char_type::DIGIT) << endl;
+    // cout << CoreUtilities::generateRandomChr(CoreUtilities::e_char_type::MIX) << endl;
+    // cout << CoreUtilities::generateRandomChr(CoreUtilities::e_char_type::SMALL) << endl;
+    // cout << CoreUtilities::generateRandomChr(CoreUtilities::e_char_type::SPECIAL_CHRS) << endl;
 
     
     return 0;

@@ -16,19 +16,13 @@ class	CoreUtilities
 {
 	public:
 
-			enum	e_char_type
-			{
-				SMALL = 1,
-				CAPITAL,
-				DIGIT = 3,
-				MIX,
-				SPECIAL_CHRS = 5
-			};
+	
 
 
 
-
-
+			/*
+				Variadic Functions Section.
+			*/
 			template <typename... Args>
 			// Public method to print multiple arguments with delimiters
 			static void	printWithDelimiter(const std::string& delimiter = "[]", const Args&...  args)
@@ -36,15 +30,11 @@ class	CoreUtilities
 					print_Var(delimiter, args...);
 			}
 
-
 			template <typename... Args>
 			static auto	sum_Var(const Args&... args) -> decltype((args + ...))
 			{
 				return (args + ...);  // Fold expression (C++17)
 			}
-
-
-
 
 			// Variadic function to check if all arguments are true
 			template <typename... Args>
@@ -52,7 +42,6 @@ class	CoreUtilities
 			{
 				return (... && args);  // Fold expression for "and"
 			}
-
 
 			// Variadic function to check if any argument is true
 			template <typename... Args>
@@ -62,15 +51,11 @@ class	CoreUtilities
 			}
 
 
-
-
-
 			// Variadic function to find the minimum value
 			template <typename T, typename... Args>
 			static T min_Var(const T& first, const Args&... args) {
 				return (args == ... == first) ? first : (std::min)(first, min_Var(args...));
 			}
-
 
 			// Variadic function to find the maximum value
 			template <typename T, typename... Args>
@@ -80,14 +65,23 @@ class	CoreUtilities
 
 
 
+			// 	WE CREATED BETTER VARIADIC FUNCTIONS ABOVE !!!
+
+			// static void	printWithDelimiter(int output, std::string delimiter)
+			// {
+			// 	std::cout << delimiter[0] << output << delimiter[1] << Tabs(3) << std::endl;
+			// }
 
 
+
+			/*
+				Generating & Creating & filling with randoms SECTION
+			*/
 
 			static void	sRand()
 			{
 				srand((unsigned) time(nullptr));
 			}
-
 
 
 			static int	generateRandomNbr(int from, int to)
@@ -97,12 +91,25 @@ class	CoreUtilities
 
 
 
+
+			enum	e_char_type
+			{
+				SMALL = 1,
+				CAPITAL,
+				DIGIT,
+				SPECIAL_CHRS,
+				MIX
+			};
+
 			static char	generateRandomChr(e_char_type chr_type)
 			{
 				
 				//Capital/Smalll/Digits only (SMALL 1 to DIGIT 3)
 				if (chr_type == e_char_type::MIX)
-					chr_type = static_cast <e_char_type>(generateRandomNbr(SMALL, DIGIT));
+				{
+					chr_type = static_cast <e_char_type>(generateRandomNbr(SMALL, SPECIAL_CHRS));
+					return (generateRandomChr(chr_type));
+				}
 
 				switch (chr_type)
 				{
@@ -119,8 +126,6 @@ class	CoreUtilities
 				}
 			}
 
-
-
 			static std::string	generateWord(e_char_type chr_type, short word_len)
 			{
 				std::string	word = "";
@@ -130,8 +135,6 @@ class	CoreUtilities
 
 				return (word);
 			}
-
-
 
 			static std::string	generateKey(e_char_type chr_type = CAPITAL)
 			{
@@ -145,16 +148,11 @@ class	CoreUtilities
 				return (key);
 			}
 
-
-
-			static void	generate_X_Keys(int	keys_nbr, e_char_type chr_type)
+			static void	generate_X_Keys(int	keys_nbr, e_char_type chr_type = CAPITAL)
 			{
 				for (int i = 1 ;	i <= keys_nbr;	i++)
 					std::cout << "Key[" << i << "]: " << generateKey(chr_type) << Tabs(2);
 			}
-
-
-
 
 
 			static void	fillArrayWithRandomWords(std::string words_arr[100], int arr_len, e_char_type chr_type, short word_len)
@@ -171,14 +169,10 @@ class	CoreUtilities
 			}
 
 
-
-
-
-
-			static void	fillArrayWithRandomKeys(std::string words_arr[100], int arr_len, e_char_type chr_type)
+			static void	fillArrayWithRandomKeys(std::string keys_arr[100], int arr_len, e_char_type chr_type)
 			{
 				for (int i = 0;	i < arr_len;	i++)
-					words_arr[i] = generateKey(chr_type);
+					keys_arr[i] = generateKey(chr_type);
 			}
 
 
@@ -191,8 +185,10 @@ class	CoreUtilities
 
 
 			
-
-
+			/*
+				SECTION:
+						USEFULL UTILS AND FUNCTIONS 
+			*/
 
 			static void Swap(int& a, int& b)
 			{
@@ -239,14 +235,10 @@ class	CoreUtilities
 				b = temp;
 			}
 
-
-
 			static void	Swap(DateUtils Date1, DateUtils Date2)
 			{
 				DateUtils::swapDates(Date1, Date2);
 			}
-
-
 
 			static std::string	Tabs(short number_of_tabs)
 			{
@@ -259,7 +251,6 @@ class	CoreUtilities
 			}
 
 
-
 			static std::string	encryptText(std::string text, short encryption_key)
 			{
 				for (int i = 0; i < text.length(); i++)
@@ -269,21 +260,11 @@ class	CoreUtilities
 			}
 
 
-
 			static std::string	decryptText(std::string text, short encryption_key)
 			{
-				return (encryptText(text, -encryption_key));
+				short	decryption_key = -1 * encryption_key;
+				return (encryptText(text, decryption_key));
 			}
-
-
-
-			// 	WE CREATED BETTER VARIADIC FUNCTION
-			// static void	printWithDelimiter(int output, std::string delimiter)
-			// {
-			// 	std::cout << delimiter[0] << output << delimiter[1] << Tabs(3) << std::endl;
-			// }
-
-
 
 
 			void	getArrayShuffled(int my_array[100], int len)
@@ -293,6 +274,11 @@ class	CoreUtilities
 			
 			}
 
+			void	getArrayShuffled(std::string my_array[100], int len)
+			{
+				for (int i = 0; i < len; i++)
+					Swap(my_array[i], my_array[(generateRandomNbr(0,  len - 1))]);
+			}
 
 	private:
 				

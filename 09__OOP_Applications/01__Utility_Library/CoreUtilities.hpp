@@ -301,7 +301,10 @@ class	CoreUtilities
 			// Helper function to print a single argument with a delimiter
 			static void printSingle(const T& output, const std::string& delimiter)
 			{
-				std::cout << delimiter[0] << output << delimiter[1] << std::endl;
+				if (delimiter.length() > 1)
+					std::cout << delimiter[0] << output << delimiter[1] << std::endl;
+				else
+					std::cout  << output << delimiter[0];
 			}
 
 

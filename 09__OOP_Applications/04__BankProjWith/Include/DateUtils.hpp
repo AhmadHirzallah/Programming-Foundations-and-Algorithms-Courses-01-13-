@@ -35,7 +35,7 @@ class	DateUtils
 					date_vec = StringUtils::splitByDelim(str_date, "/- ", StringUtils::e_split_type::SINGLE);
 
 					if (date_vec.size() != 3)
-						throw std::invalid_argument("Invalid date format");
+						throw std::invalid_argument("Invalid date input/format");
 
 					this->_day = static_cast<short> (std::stoi(date_vec[0]));
 					this->_month = static_cast<short> (std::stoi(date_vec[1]));
@@ -64,8 +64,6 @@ class	DateUtils
 				}
 
 
-
-
 				DateUtils& operator=(const DateUtils& other)
 				{
 					if (this != &other)
@@ -90,6 +88,15 @@ class	DateUtils
 					return (*this);
 				}
 
+				/*
+					Formatting:
+					- Allows you to output DateUtils objects using std::cout, std::ofstream, or any other std::ostream.
+					- Provides a readable, formatted date string representation for the object.
+					- If _day or _month is less than 10, it prepends a 0 for proper formatting (e.g., 01/01/2023 instead of 1/1/2023).
+					- Outputs the date in the DD/MM/YYYY format.
+					- The friend keyword allows this function to access private and protected members of the DateUtils class.
+					- The function can directly access _day, _month, and _year.
+				*/
 
 				friend std::ostream &operator<<(std::ostream &os, const DateUtils &obj)
 				{
@@ -99,9 +106,6 @@ class	DateUtils
 
 					return (os);
 				}
-
-
-
 
 
 				short	getDay()
@@ -120,7 +124,6 @@ class	DateUtils
 				{
 					return (this->_year);
 				}
-
 
 
 				void	setDay(short day)
@@ -142,7 +145,9 @@ class	DateUtils
 
 
 
-
+				/*
+					Functionallities Starting
+				*/
 
 				static std::string	DateToString(DateUtils Date)
 				{
@@ -162,9 +167,6 @@ class	DateUtils
 				}
 
 
-
-
-
 				static DateUtils	getSystemDate()
 				{
 					short day, month;
@@ -181,9 +183,6 @@ class	DateUtils
 				}
 
 
-
-
-
 				static bool	isValidDate(DateUtils Date)
 				{
 					if (Date.getMonth() < 1 || Date.getMonth() > 12)
@@ -194,45 +193,43 @@ class	DateUtils
 
 					return (true);
 
+					/*
+					short days_nbr_in_month;
 
-					// short days_nbr_in_month;
-
-					// if (Date.getDay() < 1 || Date.getDay() > 31)
-					// 	return (false);
+					if (Date.getDay() < 1 || Date.getDay() > 31)
+						return (false);
 					
-					// if (Date.getMonth() < 1 || Date.getMonth() > 12)
-					// 	return (false);
+					if (Date.getMonth() < 1 || Date.getMonth() > 12)
+						return (false);
 
-					// if (Date.getMonth() == 2)
-					// {
-					// 	if (isLeapYear(Date.getYear()))
-					// 	{
-					// 		if (Date.getDay() > 29)
-					// 			return (false);
-					// 	}
-					// 	else
-					// 	{
-					// 		if (Date.getDay() > 28)
-					// 			return (false);
-					// 	}
-					// }
+					if (Date.getMonth() == 2)
+					{
+						if (isLeapYear(Date.getYear()))
+						{
+							if (Date.getDay() > 29)
+								return (false);
+						}
+						else
+						{
+							if (Date.getDay() > 28)
+								return (false);
+						}
+					}
 
-					// days_nbr_in_month = getDaysNbrInMonth(Date.getMonth(), Date.getYear());
+					days_nbr_in_month = getDaysNbrInMonth(Date.getMonth(), Date.getYear());
 
-					// if (Date.getDay() > days_nbr_in_month)
-					// 	return (false);
+					if (Date.getDay() > days_nbr_in_month)
+						return (false);
 
-					// return (true);
+					return (true);
+					*/
 				}
 
 
-				bool	isValid()
+				bool isValidDate()
 				{
 					return (isValidDate(*this));
 				}
-
-
-
 
 
 				static bool	isLeapYear(int year)
@@ -247,9 +244,6 @@ class	DateUtils
 				}
 
 
-
-
-
 				static short	getDaysNbrInMonth(short month, int year)
 				{
 					if (month < 1 || month > 12)
@@ -261,13 +255,10 @@ class	DateUtils
 				}
 
 
-				short	getDaysNbrInMonth()	const
+				short	getDaysNbrInMonth()
 				{
 					return (getDaysNbrInMonth(_month , _year));
 				}
-
-
-
 
 
 				static DateUtils	calcDateByDayOrderInYear(int day_order_in_year, int year)
@@ -299,8 +290,6 @@ class	DateUtils
 				}
 
 
-
-
 				static int	getDaysNbrInYear(int year)
 				{
 					return  isLeapYear(year) ? 366 : 365;
@@ -311,8 +300,6 @@ class	DateUtils
 				{
 					return (getDaysNbrInYear(_year));
 				}
-
-
 
 
 				static int	getHoursNbrOfYear(int year)
@@ -327,8 +314,6 @@ class	DateUtils
 				}
 
 
-
-
 				static int	getMinutesNbrOfYear(int year)
 				{
 					return (getHoursNbrOfYear(year) * 60);
@@ -339,8 +324,6 @@ class	DateUtils
 				{
 					return (getMinutesNbrOfYear(_year));
 				}
-
-
 
 
 				static int	getSecondsNbrOfYear(int year)
@@ -355,10 +338,6 @@ class	DateUtils
 				}
 
 
-
-
-
-
 				static short getHoursNbrInMonth(short month, int year)
 				{
         			return getDaysNbrInMonth(month, year) * 24;
@@ -371,9 +350,6 @@ class	DateUtils
 				}
 
 
-				
-				
-				
 				static int getMinutesNbrInMonth(short month, int year)
 				{
 					return (getHoursNbrInMonth(month, year) * 60);
@@ -384,9 +360,6 @@ class	DateUtils
 				{
 					return (getMinutesNbrInMonth(_month, _year));
 				}
-
-
-
 
 
 				static int	getSecondsNbrInMonth(short month, int year)
@@ -401,6 +374,16 @@ class	DateUtils
 				}
 
 
+				enum e_daysOfWeekWithOrder
+				{
+					SUNDAY = 0,
+					MONDAY,
+					TUESDAY,
+					WEDNESDAY,
+					THURSDAY,
+					FRIDAY,
+					SATURDAY
+				};
 
 
 				static short	getDayOfWeekOrder(short day, short month, int year)
@@ -420,7 +403,6 @@ class	DateUtils
 				}
 
 
-
 				static std::string	getDayShortName(short day_of_week_order)
 				{
 					std::string arr_days_names[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
@@ -437,10 +419,9 @@ class	DateUtils
 
 				std::string getDayShortName() const
 				{
-					return (getDayShortName(getDayOfWeekOrder(_day, _month, _year)));
+					return (getDayShortName(_day, _month, _year));;
+					// return (getDayShortName(getDayOfWeekOrder(_day, _month, _year)));
 				}
-
-
 
 
 				static std::string	getMonthShortName(short month_number)
@@ -458,8 +439,11 @@ class	DateUtils
 
 
 
-
-				// PrintMonthCalendar methods
+				/*
+					SECTION:
+					
+						*****************	Print Calendars Methods ***********************
+				*/
 				static void	printMonthCalendar(short month, int year)
 				{
 					int current = getDayOfWeekOrder(1, month, year);
@@ -483,7 +467,7 @@ class	DateUtils
 						}
 					}
 					
-					std::cout << "\n  _________________________________\n";
+					std::cout << "\n  _________________________________\n\n\n";
 				}
 				
 				
@@ -492,9 +476,7 @@ class	DateUtils
 					printMonthCalendar(_month, _year);
 				}
 				
-				
-				
-				
+								
 				// PrintYearCalendar methods
 				static void	printYearCalendar(int year)
 				{
@@ -513,6 +495,11 @@ class	DateUtils
 
 
 
+
+				/*
+					SECTION:
+								DATE UTILITIES AND METHODS  !
+				*/
 
 				// DaysFromTheBeginningOfTheYear methods
 				static short daysFromTheBeginningOfTheYear(short day, short month, int year)
@@ -534,6 +521,37 @@ class	DateUtils
 				}
 
 
+				static void addDays(DateUtils Date, short days)
+				{
+					short remaining_days;
+					short month_days;
+
+					remaining_days = days + daysFromTheBeginningOfTheYear(Date.getDay(), Date.getMonth(), Date.getYear());
+					month_days = 0;
+
+					Date.setMonth(1);
+					while (true)
+					{
+						month_days = getDaysNbrInMonth(Date.getMonth(), Date.getYear());
+
+						if (remaining_days > month_days)
+						{
+							remaining_days -= month_days;
+							Date.setMonth(Date.getMonth() + 1);
+
+							if (Date.getMonth() > 12)
+							{
+								Date.setMonth(1);
+								Date.setYear(Date.getYear() + 1);
+							}
+						}
+						else
+						{
+							Date.setDay(remaining_days);
+							break;
+						}
+					}
+				}
 
 
 				void addDays(short days)
@@ -583,9 +601,6 @@ class	DateUtils
 				}
 
 
-
-
-
 				static bool	isDate1EqualDate2(DateUtils Date1, DateUtils Date2)
 				{
 					return (Date1.getYear() == Date2.getYear()) ? 
@@ -600,9 +615,6 @@ class	DateUtils
 				}
 
 
-
-
-
 				static bool	isLastDayInMonth(DateUtils Date)
 				{
 					return (Date.getDay() == getDaysNbrInMonth(Date.getMonth(), Date.getYear()));
@@ -615,16 +627,10 @@ class	DateUtils
 				}
 
 
-
-
-
 				static bool	isLastMonthInYear(short month)
 				{
 					return (month == 12);
 				}
-
-
-
 
 
 				static DateUtils	addOneDay(DateUtils Date)
@@ -656,9 +662,6 @@ class	DateUtils
 				}
 
 
-
-
-
 				static void swapDates(DateUtils &Date1, DateUtils &Date2)
 				{
 					DateUtils	TempDate;
@@ -681,9 +684,6 @@ class	DateUtils
 				}
 
 
-
-
-
 				static int getDifferenceInDays(DateUtils Date1, DateUtils Date2, bool include_end_day = false)
 				{
 					int days_difference = 0;
@@ -701,7 +701,7 @@ class	DateUtils
 						Date1 = addOneDay(Date1);
 					}
 
-					return (include_end_day ? (days_difference++ * swap_flag_value) : (days_difference * swap_flag_value));
+					return (include_end_day ? (++days_difference * swap_flag_value) : (days_difference * swap_flag_value));
 				}
 
 
@@ -711,14 +711,10 @@ class	DateUtils
 				}
 
 
-
-
 				static short calculateMyAgeInDays(DateUtils DateOfBirth)
 				{
 					return (getDifferenceInDays(DateOfBirth, DateUtils::getSystemDate(), true));
 				}
-
-
 
 
 				static DateUtils	increaseDateByOneWeek(DateUtils &Date)
@@ -736,8 +732,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	increaseDateByXWeeks(short weeks, DateUtils &Date)
 				{
 					for (short i = 1; i <= weeks; i++)
@@ -751,8 +745,6 @@ class	DateUtils
 				{
 					increaseDateByXWeeks(weeks, *this);
 				}
-
-
 
 
 				static DateUtils	increaseDateByOneMonth(DateUtils &Date)
@@ -781,8 +773,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	increaseDateByXDays(short days, DateUtils &Date)
 				{
 					for (short i = 1; i <= days; i++)
@@ -795,8 +785,6 @@ class	DateUtils
 				{
 					increaseDateByXDays(days, *this);
 				}
-
-
 
 
 				static DateUtils	increaseDateByXMonths(short months, DateUtils &Date)
@@ -813,8 +801,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	increaseDateByOneYear(DateUtils &Date)
 				{
 					Date.setYear(Date.getYear() + 1);
@@ -827,8 +813,6 @@ class	DateUtils
 				{
 					increaseDateByOneYear(*this);
 				}
-
-
 
 
 				static DateUtils	increaseDateByXYears(int years, DateUtils &Date)
@@ -845,8 +829,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	increaseDateByOneDecade(DateUtils &Date)
 				{
 					Date.setYear(Date.getYear() + 10);
@@ -859,8 +841,6 @@ class	DateUtils
 				{
 					increaseDateByOneDecade(*this);
 				}
-
-
 
 
 				static DateUtils	increaseDateByXDecades(short decades, DateUtils &Date)
@@ -877,8 +857,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	increaseDateByOneCentury(DateUtils &Date)
 				{
 					Date.setYear(Date.getYear() + 100);
@@ -893,8 +871,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	increaseDateByOneMillennium(DateUtils &Date)
 				{
 					Date.setYear(Date.getYear() + 1000);
@@ -907,8 +883,6 @@ class	DateUtils
 				{
 					increaseDateByOneMillennium(*this);
 				}
-
-
 
 
 				static DateUtils	decreaseDateByOneDay(DateUtils Date)
@@ -940,8 +914,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	decreaseDateByOneWeek(DateUtils &Date)
 				{
 					for (int i = 1; i <= 7; i++)
@@ -957,8 +929,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	decreaseDateByXWeeks(short weeks, DateUtils &Date)
 				{
 					for (short i = 1; i <= weeks; i++)
@@ -972,8 +942,6 @@ class	DateUtils
 				{
 					decreaseDateByXWeeks(weeks, *this);
 				}
-
-
 
 
 				static DateUtils	decreaseDateByOneMonth(DateUtils &Date)
@@ -1002,8 +970,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	decreaseDateByXDays(short days, DateUtils &Date)
 				{
 					for (short i = 1; i <= days; i++)
@@ -1017,8 +983,6 @@ class	DateUtils
 				{
 					decreaseDateByXDays(days, *this);
 				}
-
-
 
 
 				static DateUtils	decreaseDateByXMonths(short months, DateUtils &Date)
@@ -1036,8 +1000,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	decreaseDateByOneYear(DateUtils &Date)
 				{
 					Date.setYear(Date.getYear() - 1);
@@ -1050,8 +1012,6 @@ class	DateUtils
 				{
 					decreaseDateByOneYear(*this);
 				}
-
-
 
 
 				static DateUtils	decreaseDateByXYears(int years, DateUtils &Date)
@@ -1068,8 +1028,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	decreaseDateByOneDecade(DateUtils &Date)
 				{
 					Date.setYear(Date.getYear() - 10);
@@ -1082,8 +1040,6 @@ class	DateUtils
 				{
 					decreaseDateByOneDecade(*this);
 				}
-
-
 
 
 				static DateUtils	decreaseDateByXDecades(short decades, DateUtils &Date)
@@ -1100,8 +1056,6 @@ class	DateUtils
 				}
 
 
-
-
 				static DateUtils	decreaseDateByOneCentury(DateUtils &Date)
 				{
 					Date.setYear(Date.getYear() - 100);
@@ -1109,12 +1063,11 @@ class	DateUtils
 					return (Date);
 				}
 
+
 				void decreaseDateByOneCentury()
 				{
 					decreaseDateByOneCentury(*this);
 				}
-
-
 
 
 				static DateUtils	decreaseDateByOneMillennium(DateUtils &Date)
@@ -1131,11 +1084,9 @@ class	DateUtils
 				}
 
 
-
-
 				static short	isEndOfWeek(DateUtils Date)
 				{
-					return (getDayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear()) == 6);		//6 = Saturday
+					return (getDayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear()) == SATURDAY);		//6 = Saturday
 				}
 
 
@@ -1145,14 +1096,12 @@ class	DateUtils
 				}
 
 
-
-
 				static bool	isWeekEnd(DateUtils Date)
 				{
 					// Weekends are Fri and Sat
 					short dayIndex = getDayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear());
 
-					return (dayIndex == 5 || dayIndex == 6);
+					return (dayIndex == FRIDAY || dayIndex == SATURDAY);
 				}
 
 
@@ -1160,8 +1109,6 @@ class	DateUtils
 				{
 					return isWeekEnd(*this);
 				}
-
-
 
 
 				static bool	isBusinessDay(DateUtils Date)
@@ -1177,19 +1124,15 @@ class	DateUtils
 				}
 
 
-
-
 				static short	daysUntilTheEndOfWeek(DateUtils Date)
-				{
-					return (6 - getDayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear()));
+				{			// SATURDAY  is last day in the Week ! Its index is 6 ; so 6 - 0(sunday) means 6 days from SUNDAY to SATURDAY 
+					return (SATURDAY - getDayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear()));
 				}
 
 				short	daysUntilTheEndOfWeek()
 				{
 					return (daysUntilTheEndOfWeek(*this));
 				}
-
-
 
 
 				static short	daysUntilTheEndOfMonth(DateUtils Date)
@@ -1208,8 +1151,6 @@ class	DateUtils
 				{
 					return (daysUntilTheEndOfMonth(*this));
 				}
-
-
 
 
 				static short	daysUntilTheEndOfYear(DateUtils Date)

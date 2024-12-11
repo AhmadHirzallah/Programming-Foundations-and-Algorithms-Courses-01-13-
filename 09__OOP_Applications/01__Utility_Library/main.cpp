@@ -29,13 +29,13 @@ int main()
 
 
 
-		int result = CoreUtilities::sum_Var(1, 2, 3, 4, 5);              // Sums integers
-		double floatResult = CoreUtilities::sum_Var(1.5, 2.0, 3.7);      // Sums floating-point numbers
-		auto mixedResult = CoreUtilities::sum_Var(1, 2.5, 3, 4.0);       // Works with mixed types
+		// int result = CoreUtilities::sum_Var(1, 2, 3, 4, 5);              // Sums integers
+		// double floatResult = CoreUtilities::sum_Var(1.5, 2.0, 3.7);      // Sums floating-point numbers
+		// auto mixedResult = CoreUtilities::sum_Var(1, 2.5, 3, 4.0);       // Works with mixed types
 		
-		std::cout << "Sum of integers: " << result << std::endl;
-		std::cout << "Sum of floating-point numbers: " << floatResult << std::endl;
-		std::cout << "Sum of mixed types: " << mixedResult << std::endl;
+		// std::cout << "Sum of integers: " << result << std::endl;
+		// std::cout << "Sum of floating-point numbers: " << floatResult << std::endl;
+		// std::cout << "Sum of mixed types: " << mixedResult << std::endl;
 
 
 
