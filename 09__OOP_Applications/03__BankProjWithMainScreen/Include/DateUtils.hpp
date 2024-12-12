@@ -684,7 +684,7 @@ class	DateUtils
 
 
 
-				static int getDifferenceInDays(DateUtils Date1, DateUtils Date2, bool include_end_day = false)
+				static int calculateDifferenceInDays(DateUtils Date1, DateUtils Date2, bool include_end_day = false)
 				{
 					int days_difference = 0;
 					short swap_flag_value = 1;
@@ -705,9 +705,9 @@ class	DateUtils
 				}
 
 
-				int getDifferenceInDays(DateUtils Date2, bool include_end_day = false)
+				int calculateDifferenceInDays(DateUtils Date2, bool include_end_day = false)
 				{
-					return (getDifferenceInDays(*this, Date2, include_end_day));
+					return (calculateDifferenceInDays(*this, Date2, include_end_day));
 				}
 
 
@@ -715,7 +715,7 @@ class	DateUtils
 
 				static short calculateMyAgeInDays(DateUtils DateOfBirth)
 				{
-					return (getDifferenceInDays(DateOfBirth, DateUtils::getSystemDate(), true));
+					return (calculateDifferenceInDays(DateOfBirth, DateUtils::getSystemDate(), true));
 				}
 
 
@@ -1200,7 +1200,7 @@ class	DateUtils
 					EndOfMonthDate.setMonth(Date.getMonth());
 					EndOfMonthDate.setYear(Date.getYear());
 
-					return (getDifferenceInDays(Date, EndOfMonthDate, true));
+					return (calculateDifferenceInDays(Date, EndOfMonthDate, true));
 				}
 
 
@@ -1220,7 +1220,7 @@ class	DateUtils
 					EndOfYearDate.setMonth(12);
 					EndOfYearDate.setYear(Date.getYear());
 
-					return (getDifferenceInDays(Date, EndOfYearDate, true));
+					return (calculateDifferenceInDays(Date, EndOfYearDate, true));
 				}
 
 				short	daysUntilTheEndOfYear()

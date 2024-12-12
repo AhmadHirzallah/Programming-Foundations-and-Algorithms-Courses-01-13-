@@ -684,7 +684,7 @@ class	DateUtils
 				}
 
 
-				static int getDifferenceInDays(DateUtils Date1, DateUtils Date2, bool include_end_day = false)
+				static int calculateDifferenceInDays(DateUtils Date1, DateUtils Date2, bool include_end_day = false)
 				{
 					int days_difference = 0;
 					short swap_flag_value = 1;
@@ -705,15 +705,15 @@ class	DateUtils
 				}
 
 
-				int getDifferenceInDays(DateUtils Date2, bool include_end_day = false)
+				int calculateDifferenceInDays(DateUtils Date2, bool include_end_day = false)
 				{
-					return (getDifferenceInDays(*this, Date2, include_end_day));
+					return (calculateDifferenceInDays(*this, Date2, include_end_day));
 				}
 
 
 				static short calculateMyAgeInDays(DateUtils DateOfBirth)
 				{
-					return (getDifferenceInDays(DateOfBirth, DateUtils::getSystemDate(), true));
+					return (calculateDifferenceInDays(DateOfBirth, DateUtils::getSystemDate(), true));
 				}
 
 
@@ -1143,7 +1143,7 @@ class	DateUtils
 					EndOfMonthDate.setMonth(Date.getMonth());
 					EndOfMonthDate.setYear(Date.getYear());
 
-					return (getDifferenceInDays(Date, EndOfMonthDate, true));
+					return (calculateDifferenceInDays(Date, EndOfMonthDate, true));
 				}
 
 
@@ -1161,8 +1161,9 @@ class	DateUtils
 					EndOfYearDate.setMonth(12);
 					EndOfYearDate.setYear(Date.getYear());
 
-					return (getDifferenceInDays(Date, EndOfYearDate, true));
+					return (calculateDifferenceInDays(Date, EndOfYearDate, true));
 				}
+
 
 				short	daysUntilTheEndOfYear()
 				{
@@ -1170,14 +1171,11 @@ class	DateUtils
 				}
 
 
-
-
-
-
 				// Added this method to calculate business days between 2 Dates
 				static short	calculateBusinessDays(DateUtils DateFrom, DateUtils DateTo)
 				{
 					short days = 0;
+
 					while (isDate1BeforeDate2(DateFrom, DateTo))
 					{
 						if (isBusinessDay(DateFrom))
@@ -1196,8 +1194,6 @@ class	DateUtils
 				}
 
 
-
-
 				static short	calculateVacationDays(DateUtils DateFrom, DateUtils DateTo)
 				{
 					return (calculateBusinessDays(DateFrom, DateTo));
@@ -1208,8 +1204,6 @@ class	DateUtils
 				{
 					return (calculateVacationDays(*this, DateTo));
 				}
-
-
 
 
 				// Above method is enough, no need for an additional method for the object
@@ -1233,8 +1227,6 @@ class	DateUtils
 				}
 
 
-
-
 				static bool	isDate1AfterDate2(DateUtils Date1, DateUtils Date2)
 				{
 					return (!isDate1BeforeDate2(Date1, Date2) && !isDate1EqualDate2(Date1, Date2));
@@ -1245,10 +1237,6 @@ class	DateUtils
 				{
 					return isDate1AfterDate2(*this, Date2);
 				}
-
-
-
-
 
 
 				enum	e_date_compare { BEFORE = -1, EQUAL = 0, AFTER = 1 };
