@@ -58,6 +58,17 @@ public:
 			}
 
 
+			clsBankClient(e_mode mode,  std::string fullname, std::string Email, std::string PhoneNbr,
+							 std::string AccountID, std::string Password, double balance)
+						: clsPerson(fullname, Email, PhoneNbr)
+			{
+				_mode = mode;
+				_AccountID = AccountID;
+				_Password = Password;
+				_balance = balance;
+			}
+
+
 			bool	isEmpty()
 			{
 				return (_mode == e_mode::EMPTY_MODE);

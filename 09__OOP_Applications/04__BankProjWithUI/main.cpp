@@ -11,9 +11,9 @@ int main()
 {
     CoreUtilities::sRand();
     // clsMainScreen::showMainMenu();
-    DateUtils::printYearCalendar(2024);
 
 
+    std::cout << StringUtils::calculateWordsNbr(",,Ahmad,,Omar,,");
 
 
 
