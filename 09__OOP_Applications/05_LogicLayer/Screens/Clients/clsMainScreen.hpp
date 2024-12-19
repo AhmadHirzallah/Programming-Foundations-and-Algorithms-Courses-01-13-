@@ -165,11 +165,8 @@ public:
 
 				_PrintMenuOptions();
 
-				_PerformMainMenuOption((e_main_menu_options) InputValidator::readNumberBetween_Var(1, 8,
-												"\t\t\t\t\t\t\tInvalid entered number;"
-												" Please enter a number between (0) and (8) again: ",
-												"\t\t\t\t\t\t\tInvalid entered number's type;"
-												" Please enter a number between (0) and (8) again: "));
+				_PerformMainMenuOption((e_main_menu_options) InputValidator::readRangedNumberShort\
+																		(1, 8, "Please enter a number between (0) and (8) again: "));
 			}
 
 };

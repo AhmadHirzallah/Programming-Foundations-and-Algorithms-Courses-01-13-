@@ -22,50 +22,25 @@ class	InputValidator
 			// requires std::is_arithmetic_v<T>
 
 			template	<typename T>
-			
-			static bool isNumberBetween_Var(T number, T from, T to)
+			static bool IsNumberBetween_Var(T number, T from, T to)
 			{
 				return (number >= from && number <= to);
 			}
 
 
-
-			// Template variadic function to read numbers (supports int, double, etc.)
-			template	<typename T>
-
-			static T readNumber_Var(std::string error_message = "Invalid entered number, enter again\n")
+			static std::string readString(std::string display = "Please enter: ")
 			{
-				T number;
+				std::string EnteredStr;
 
-				while (!(std::cin >> number))
+				std::cout << display;				// Display the prompt
+				if (std::cin.peek() == '\n')		// Clear input buffer to avoid leftover input issues
 				{
-					std::cin.clear();  // Clear the error flag on cin
-					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ignore any remaining characters in the buffer
-					std::cout << error_message;
+					std::cin.clear(); // Clear any error flags
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				}
+				std::getline(std::cin, EnteredStr);			// Read the full line
 
-				return (number);
-			}
-
-
-			// Template variadic function to read numbers within a specific range
-			template <typename T>
-
-			static T readNumberBetween_Var(T from, T to,
-					std::string range_error_message = "Number is not within range; please enter number again:\n",
-					std::string type_error_message = "Invalid entered number's type; please enter number again\n")
-			{
-				T number = readNumber_Var<T>();  // Call the generic readNumber function to get the input
-
-				// Check if the number is within the given range
-
-				while (!(isNumberBetween_Var(number, from, to)))
-				{
-					std::cout << range_error_message;
-					number = readNumber_Var<T>(type_error_message);  // Re-prompt for input
-				}
-
-				return (number);
+				return (EnteredStr);
 			}
 
 
@@ -94,6 +69,122 @@ class	InputValidator
 			{
 				return (DateUtils::isValidDate(Date));
 			}
+
+
+
+
+// Function to read an integer
+
+			static int readNumberInt(const std::string& promptMessage = "Please enter number: ") {
+				int number;
+				std::cout << promptMessage;
+				while (!(std::cin >> number)) {
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Invalid input, try again: ";
+				}
+				return number;
+			}
+
+			// Function to read a short integer
+			static short readNumberShort(const std::string& promptMessage = "Please enter number: ") {
+				short number;
+				std::cout << promptMessage;
+				while (!(std::cin >> number)) {
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Invalid input, try again: ";
+				}
+				return number;
+			}
+
+			// Function to read a long integer
+			static long readNumberLong(const std::string& promptMessage = "Please enter number: ") {
+				long number;
+				std::cout << promptMessage;
+				while (!(std::cin >> number)) {
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Invalid input, try again: ";
+				}
+				return number;
+			}
+
+			// Function to read a float
+			static float readNumberFloat(const std::string& promptMessage = "Please enter number: ") {
+				float number;
+				std::cout << promptMessage;
+				while (!(std::cin >> number)) {
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Invalid input, try again: ";
+				}
+				return number;
+			}
+
+			// Function to read a double
+			static double readNumberDouble(const std::string& promptMessage = "Please enter number: ") {
+				double number;
+				std::cout << promptMessage;
+				while (!(std::cin >> number)) {
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					std::cout << "Invalid input, try again: ";
+				}
+				return number;
+			}
+
+			// Function to read a ranged integer
+			static int readRangedNumberInt(int from, int to, const std::string& promptMessage = "Please enter number: ") {
+				int number = readNumberInt(promptMessage); // Get the number from the user
+				while (!IsNumberBetween_Var(number, from, to)) {
+					std::cout << "Number not in range, try again: ";
+					number = readNumberInt(promptMessage);
+				}
+				return number;
+			}
+
+			// Function to read a ranged short integer
+			static short readRangedNumberShort(short from, short to, const std::string& promptMessage = "Please enter number: ") {
+				short number = readNumberShort(promptMessage);
+				while (!IsNumberBetween_Var(number, from, to)) {
+					std::cout << "Number not in range, try again: ";
+					number = readNumberShort(promptMessage);
+				}
+				return number;
+			}
+
+			// Function to read a ranged long integer
+			static long readRangedNumberLong(long from, long to, const std::string& promptMessage = "Please enter number: ") {
+				long number = readNumberLong(promptMessage);
+				while (!IsNumberBetween_Var(number, from, to)) {
+					std::cout << "Number not in range, try again: ";
+					number = readNumberLong(promptMessage);
+				}
+				return number;
+			}
+
+			// Function to read a ranged float
+			static float readRangedNumberFloat(float from, float to, const std::string& promptMessage = "Please enter number: ") {
+				float number = readNumberFloat(promptMessage);
+				while (!IsNumberBetween_Var(number, from, to)) {
+					std::cout << "Number not in range, try again: ";
+					number = readNumberFloat(promptMessage);
+				}
+				return number;
+			}
+
+			// Function to read a ranged double
+			static double readRangedNumberDouble(double from, double to =  std::numeric_limits<double>::max(), const std::string& promptMessage = "Please enter number: ") {
+				double number = readNumberDouble(promptMessage);
+				while (!IsNumberBetween_Var(number, from, to)) {
+					std::cout << "Number not in range, try again: ";
+					number = readNumberDouble(promptMessage);
+				}
+				return number;
+			}
+
+		
 	
 };
 
@@ -137,7 +228,7 @@ class	InputValidator
 			// {
 			// 	int number = readIntNumber();
 
-			// 	while (!isNumberBetween(number, from, to))
+			// 	while (!IsNumberBetween_Var(number, from, to))
 			// 	{
 			// 		std::cout << error_message;
 			// 		number = readIntNumber();
@@ -151,7 +242,7 @@ class	InputValidator
 			// {
 			// 	double number = readDblNumber();
 
-			// 	while (!isNumberBetween(number, from, to))
+			// 	while (!IsNumberBetween_Var(number, from, to))
 			// 	{
 			// 		std::cout << error_message;
 			// 		number = readDblNumber();
@@ -163,24 +254,83 @@ class	InputValidator
 
 
 /*
-				// static bool	isNumberBetween(short number, short from, short to)
+				// static bool	IsNumberBetween_Var(short number, short from, short to)
 				// {
 				// 	return (number >= from && number <= to);
 				// }
 
-				// static bool	isNumberBetween(int number, int from, int to)
+				// static bool	IsNumberBetween_Var(int number, int from, int to)
 				// {
 				// 	return (number >= from && number <= to);
 				// }
 
-				// static bool	isNumberBetween(float number, float from, float to)
+				// static bool	IsNumberBetween_Var(float number, float from, float to)
 				// {
 				// 	return (number >= from && number <= to);
 				// }
 
-				// static bool	isNumberBetween(double number, double from, double to)
+				// static bool	IsNumberBetween_Var(double number, double from, double to)
 				// {
 				// 	return (number >= from && number <= to);
 				// }
 			
 			*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+			// Template variadic function to read numbers (supports int, double, etc.)
+			template	<typename T>
+
+			static T readNumber_Var(std::string error_message = "Invalid entered number, enter again\n")
+			{
+				T number;
+
+				do			// Ask for input at least once
+				{
+					std::cout << "Please enter: ";
+					std::cin >> number;  // Try to read a number into 'number'
+
+					if (std::cin.fail())		// If reading the number failed (because input was not a number), clear the error and prompt again
+					{
+						std::cin.clear();  // Clear the error flag
+						std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ignore invalid input
+						std::cout << error_message;  // Show error message
+					}
+				}
+				while (std::cin.fail());		// Repeat the loop as long as the input is not valid
+
+				return (number);
+			}
+
+
+			// Template variadic function to read numbers within a specific range
+			template <typename T>
+
+			static T readNumberBetween_Var(std::string display = "Please enter:", 
+											T from = std::numeric_limits<T>::lowest(),
+											T to = std::numeric_limits<T>::max())	
+			{
+				std::cout << display;
+				T number = readNumber_Var<T>();  // Call the generic readNumber function to get the input
+				
+				while (!(IsNumberBetween_Var_Var(number, from, to)))	// Check if the number is within the given range
+				{
+					std::cout << "Number is not within range; please enter number again:\n";
+					number = readNumber_Var<T>("Invalid entered number's type; please enter number again\n");  // Re-prompt for input
+				}
+
+				return (number);
+			}
+
+*/
