@@ -135,7 +135,7 @@ private:
 			}
 
 
-			short _AppendAddingDataLineToFile(std::string DataLine)
+			short _AppendAddingClientDataLineToFile(std::string DataLine)
 			{
 				std::fstream	FileSystem;
 
@@ -155,7 +155,7 @@ private:
 				std::string DataLine;
 				
 				DataLine = _ConvertClientObjIntoClientDataLine(*this);
-				if ((_AppendAddingDataLineToFile(DataLine)))
+				if ((_AppendAddingClientDataLineToFile(DataLine)))
 					return (-1); 								// Failed To ADD !!
 				return (0);			//	Added Successfully
 			}

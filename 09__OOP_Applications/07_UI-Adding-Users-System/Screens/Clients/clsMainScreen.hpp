@@ -18,6 +18,8 @@
 
 # include "clsClientsSuperScreen.hpp"
 
+# include "../Users/clsShowUsersMenuScreen.hpp"
+
 
 class	clsMainScreen : protected clsClientsSuperScreen
 {
@@ -56,7 +58,7 @@ private:
 				int padding = (totalWidth - menuWidth) / 2;  // Padding for centering the menu block
 
 				std::cout << CoreUtilities::Tabs(5) << std::setw(padding) << "" << "===========================================" << std::endl;
-				std::cout << CoreUtilities::Tabs(5) << std::setw(padding) << "" << "\t[1] Show Client List." << std::endl;
+				std::cout << CoreUtilities::Tabs(5) << std::setw(padding) << "" << "\t[1] Show Clients List." << std::endl;
 				std::cout << CoreUtilities::Tabs(5) << std::setw(padding) << "" << "\t[2] Add New Client." << std::endl;
 				std::cout << CoreUtilities::Tabs(5) << std::setw(padding) << "" << "\t[3] Delete Client." << std::endl;
 				std::cout << CoreUtilities::Tabs(5) << std::setw(padding) << "" << "\t[4] Update Client Info." << std::endl;
@@ -106,7 +108,8 @@ private:
 
 			static void	_ShowUsersManagementMenuScreen()
 			{
-				std::cout << "\nManage Users Menu Screen Will be here...\n";
+				// std::cout << "\nManage Users Menu Screen Will be here...\n";
+				clsShowUsersMenuScreen::ShowUsersMenuScreen();
 			}
 
 
@@ -169,7 +172,7 @@ private:
 						return ;
 				}
 
-				if (Option == E_MAIN_MENU_OPTIONS::TRANSACTIONS_SYSTEM) 
+				if (Option == E_MAIN_MENU_OPTIONS::TRANSACTIONS_SYSTEM || Option ==  E_MAIN_MENU_OPTIONS::USERS_SYSTEM)
 					showMainMenu();		// Because you press 4 in transaction (back to main menu) then you should back (without prompting from user again) without pressing another key!!!!
 				else 
 					_GoBackToMainMenue();	//	Press any key to back to main menu.

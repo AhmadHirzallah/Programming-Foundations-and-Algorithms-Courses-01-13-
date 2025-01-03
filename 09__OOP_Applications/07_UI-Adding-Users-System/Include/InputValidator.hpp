@@ -115,7 +115,8 @@ class	InputValidator
 					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					std::cout << "Invalid input, try again: ";
 				}
-				return number;
+
+				return (number);
 			}
 
 			// Function to read a long integer
