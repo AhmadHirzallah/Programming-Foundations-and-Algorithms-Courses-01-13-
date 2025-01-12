@@ -28,7 +28,7 @@ int main()
 
 
 
-    std::cout << "\n\n------------\n\n Swapping ! :" << std::endl;
+    std::cout << "\n\n------------\n\nSwapping ! :" << std::endl;
 
 
     std::queue <int>    firstQueue;
