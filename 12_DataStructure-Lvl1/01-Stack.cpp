@@ -18,7 +18,7 @@ int main()
     while (!(stkNumbers.empty()))
     {
         std::cout << stkNumbers.top() << "\n" << std::endl;
-        stkNumbers.pop();
+        stkNumbers.pop();       // 50 40 30 20 10
     }
 
 
@@ -33,7 +33,7 @@ int main()
     S1.push(30.3);
     S1.push(40.4);
     S1.push(50.5);
-    std::cout << std::endl << "Stack (1) Size Before:   " << S1.size();
+    std::cout << std::endl << "Stack (1) Size Before:   " << S1.size();     //  5 
 
 
     S2.push(60.6);
@@ -42,7 +42,7 @@ int main()
     S2.push(90.9);
     S2.push(100.111);
     S2.push(100.112);
-    std::cout << std::endl << "Stack (2) Size Before:   " << S2.size();
+    std::cout << std::endl << "Stack (2) Size Before:   " << S2.size();     //  6
 
 
     S1.swap(S2);

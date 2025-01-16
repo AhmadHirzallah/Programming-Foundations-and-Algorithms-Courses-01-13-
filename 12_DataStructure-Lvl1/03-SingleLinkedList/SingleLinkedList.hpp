@@ -1,3 +1,7 @@
+#ifndef SINGLELINKEDLIST_HPP
+# define SINGLELINKEDLIST_HPP
+
+
 #include <iostream>
 
 class SingleLinkedList
@@ -10,3 +14,7 @@ public:
     int data;
     SingleLinkedList *next;
 };
+
+
+
+#endif

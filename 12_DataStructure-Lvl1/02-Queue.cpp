@@ -1,5 +1,5 @@
 #include <iostream>
-#include <queue>        //  Stack is part of STL : Standard Template Library
+#include <queue>        //  Queue is part of STL : Standard Template Library
 
 int main()
 {
@@ -12,9 +12,9 @@ int main()
     myQueue.push(30.3);
     myQueue.push(40.4);
 
-    std::cout << "Size of Queue:  " <<  myQueue.size() << std::endl;
-    std::cout << "Front of Queue:  " <<  myQueue.front() << std::endl;
-    std::cout << "Back of Queue:  " <<  myQueue.back() << std::endl << std::endl;
+    std::cout << "Size of Queue:  " <<  myQueue.size() << std::endl;        //  4
+    std::cout << "Front of Queue:  " <<  myQueue.front() << std::endl;      //  10.1
+    std::cout << "Back of Queue:  " <<  myQueue.back() << std::endl << std::endl;   //  40.4
 
     std::cout << "Queue elements:  " << std::endl;
     

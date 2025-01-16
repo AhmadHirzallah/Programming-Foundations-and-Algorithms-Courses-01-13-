@@ -45,6 +45,9 @@ void    printSingleLL(SingleLinkedList *Head)
 
 SingleLinkedList   *findNodeByDataSingleLL(SingleLinkedList *Head, int data)
 {
+    if (!Head)
+        return nullptr;
+    
     while (Head)
     {
         if (Head->data == data)
