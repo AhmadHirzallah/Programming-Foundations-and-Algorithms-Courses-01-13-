@@ -38,12 +38,10 @@ int main()
     firstQueue.push(20);
     firstQueue.push(30);
     firstQueue.push(40);
-    firstQueue.push(90);
 
     lastQueue.push(60);
     lastQueue.push(70);
     lastQueue.push(80);
-    lastQueue.push(90);
 
     firstQueue.swap(lastQueue);
 

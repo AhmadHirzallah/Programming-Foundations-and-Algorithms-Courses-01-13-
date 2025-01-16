@@ -33,19 +33,22 @@ int main()
     S1.push(30.3);
     S1.push(40.4);
     S1.push(50.5);
+    std::cout << std::endl << "Stack (1) Size Before:   " << S1.size();
 
 
     S2.push(60.6);
     S2.push(70.7);
     S2.push(80.8);
     S2.push(90.9);
-    S2.push(100.110);
-    S2.push(100.110);
+    S2.push(100.111);
+    S2.push(100.112);
+    std::cout << std::endl << "Stack (2) Size Before:   " << S2.size();
 
 
     S1.swap(S2);
 
 
+    std::cout << std::endl << std::endl << "Stack (1) Size After:   " << S1.size();
     std::cout << std::endl << "Stack (1) After:   " ;
     while (!(S1.empty()))
     {
@@ -53,6 +56,7 @@ int main()
         S1.pop();
     }
 
+    std::cout << std::endl << std::endl << "Stack (2) Size After:   " << S2.size();
     std::cout << std::endl << "Stack (2) After:   " ;
     while (!(S2.empty()))
     {

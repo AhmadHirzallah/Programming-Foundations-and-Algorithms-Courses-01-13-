@@ -37,6 +37,9 @@ void    printSingleLL(SingleLinkedList *Head)
 
 SingleLinkedList   *findNodeByDataSingleLL(SingleLinkedList *Head, int data)
 {
+    if (!Head)
+        return nullptr;
+
     while (Head)
     {
         if (Head->data == data)
@@ -84,7 +87,7 @@ int main()
     system("clear");
 
 
-    // insertAtBeginingAndFindAndIsExistTests();
+    insertAtBeginingAndFindAndIsExistTests();
 
     //  Insert After Node Tests Are Below
 
@@ -99,7 +102,7 @@ int main()
     SingleLinkedList *Finded = findNodeByDataSingleLL(Head, 5);
     insertAfterNodeSingleLL(&Finded , 6);
     printSingleLL(Head);
-    insertAfterNodeSingleLL(&Finded , 6);
+    insertAfterNodeSingleLL(&Finded , 7);
     printSingleLL(Head);
 
     Finded = findNodeByDataSingleLL(Head, 6);
@@ -165,22 +168,22 @@ void    insertAtBeginingAndFindAndIsExistTests()
     if ((NewNode = findNodeByDataSingleLL(Head, 1)))
         std::cout << "The Node is Exist and the Data : " << NewNode->data << "  is Found Successfully.\n";
     else
-        std::cout << "The Node is'nt Exist and the Data : " << NewNode->data << "  ISNOT Found Successfully.\n";
+        std::cout << "The Node is'nt Exist and the Data ISNOT Found Successfully.\n";
 
     std::cout <<"\n\n\n";
     int x = 7;
     if ((NewNode = findNodeByDataSingleLL(Head, x)))
         std::cout << "The Node is Exist and the Data : " << NewNode->data << "  is Found Successfully. :)\n";
     else
-        std::cout << "The Node is'nt Exist and the Data:  " << x << " ISNOT Found Successfully. :( \n";
+        std::cout << "The Node is'nt Exist and the Data:  " << x << " ISNOT Found. :( \n";
 
     std::cout <<"\n\n\n";
 
     std::cout <<"Checking if Node is Exist By Data:\n\n";
     if (isNodeExistByDataSingleLL(Head, 1))
-        std::cout << "The Node is Exist Found Successfully.\n";
+        std::cout << "The Node is Exist.\n";
     else
-        std::cout << "The Node isn't Exist ISNOT Found Successfully.\n";
+        std::cout << "The Node isn't Exist.\n";
 
 
     std::cout <<"\n\n\nChecking if Node is Exist By Data:\n\n";
