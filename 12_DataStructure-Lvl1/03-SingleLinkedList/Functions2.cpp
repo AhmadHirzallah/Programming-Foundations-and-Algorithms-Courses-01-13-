@@ -43,7 +43,7 @@ void    printSingleLL(SingleLinkedList *Head)
 }
 
 
-SingleLinkedList   *findNodeByDataSingleLL(SingleLinkedList *Head, int data)
+SingleLinkedList   *findNodeSingleLL(SingleLinkedList *Head, int data)
 {
     if (!Head)
         return nullptr;
@@ -142,6 +142,8 @@ short   insertAtEndOfSingleLL(SingleLinkedList **Head, int to_insert)
     }
 
     SingleLinkedList *Current = *Head;
+    if (!Current)
+        return 1;
 
     while (Current->next)       // Current->Next != NULL        // Will Reach Last Node
         Current = Current->next;
@@ -340,7 +342,7 @@ void    insertAtEndTests()
     insertAtBeginingSingleLL(&Head, 0);
     printSingleLL(Head);
 
-    SingleLinkedList *Node = findNodeByDataSingleLL(Head, 3);
+    SingleLinkedList *Node = findNodeSingleLL(Head, 3);
 
     insertAfterNodeSingleLL(&Node, 33);
     insertBeforeNodeSingleLL(&Head, Node, 33);
@@ -357,7 +359,7 @@ void    insertBeforeNodeTests()
 
     printSingleLL(Head);
 
-    SingleLinkedList *Finded = findNodeByDataSingleLL(Head, 11);
+    SingleLinkedList *Finded = findNodeSingleLL(Head, 11);
     if (!insertBeforeNodeSingleLL(&Head, Finded, 1))
         printSingleLL(Head);
     else std::cout << "\n Not Found :(\n\n";

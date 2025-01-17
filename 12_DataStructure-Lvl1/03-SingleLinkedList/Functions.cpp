@@ -35,7 +35,7 @@ void    printSingleLL(SingleLinkedList *Head)
 }
 
 
-SingleLinkedList   *findNodeByDataSingleLL(SingleLinkedList *Head, int data)
+SingleLinkedList   *findNodeSingleLL(SingleLinkedList *Head, int data)
 {
     if (!Head)
         return nullptr;
@@ -101,24 +101,24 @@ int main()
     printSingleLL(Head);
     
     
-    SingleLinkedList *Finded = findNodeByDataSingleLL(Head, 5);
+    SingleLinkedList *Finded = findNodeSingleLL(Head, 5);
     insertAfterNodeSingleLL(&Finded , 6);
     printSingleLL(Head);
     insertAfterNodeSingleLL(&Finded , 7);
     printSingleLL(Head);
 
-    Finded = findNodeByDataSingleLL(Head, 6);
+    Finded = findNodeSingleLL(Head, 6);
     insertAfterNodeSingleLL(&Finded , 7);
     printSingleLL(Head);
 
 
-    Finded = findNodeByDataSingleLL(Head, 1);
+    Finded = findNodeSingleLL(Head, 1);
     insertAfterNodeSingleLL(&Finded , 100);
     printSingleLL(Head);
 
 
 
-    Finded = findNodeByDataSingleLL(Head, 22);
+    Finded = findNodeSingleLL(Head, 22);
     insertAfterNodeSingleLL(&Finded , 10000);
     printSingleLL(Head);
     return 0;
@@ -167,14 +167,14 @@ void    insertAtBeginingAndFindAndIsExistTests()
     std::cout <<"Finding Node By Data:\n\n";
     SingleLinkedList *Head = Node1;
     SingleLinkedList *NewNode;
-    if ((NewNode = findNodeByDataSingleLL(Head, 1)))
+    if ((NewNode = findNodeSingleLL(Head, 1)))
         std::cout << "The Node is Exist and the Data : " << NewNode->data << "  is Found Successfully.\n";
     else
         std::cout << "The Node is'nt Exist and the Data ISNOT Found .\n";
 
     std::cout <<"\n\n\n";
     int x = 7;
-    if ((NewNode = findNodeByDataSingleLL(Head, x)))
+    if ((NewNode = findNodeSingleLL(Head, x)))
         std::cout << "The Node is Exist and the Data : " << NewNode->data << "  is Found Successfully. :)\n";
     else
         std::cout << "The Node is'nt Exist and the Data:  " << x << " ISNOT Found. :( \n";
