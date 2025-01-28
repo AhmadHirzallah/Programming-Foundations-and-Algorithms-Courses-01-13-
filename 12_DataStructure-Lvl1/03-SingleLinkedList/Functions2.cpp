@@ -95,22 +95,26 @@ short   insertBeforeNodeSingleLL(SingleLinkedList **Head, SingleLinkedList *Node
     if (!(*Head) || !(Node))
         return 1;
 
+    if (*Head == Node)
+    {
+        insertAtBeginingSingleLL(Head, insertData);
+        return 0;
+        
+        /*
+            NewNode->next = *Head;
+            *Head = NewNode;
+            return 0;
+        */
+    }
+
     SingleLinkedList *NewNode = new SingleLinkedList();
     if (!NewNode)
         return 1;
 
-    SingleLinkedList *Current = *Head;
-    SingleLinkedList *Prev = nullptr;
-
     NewNode->data = insertData;
 
-    if (*Head == Node)
-    {
-        NewNode->next = *Head;
-        *Head = NewNode;
-        return 0;
-    }
-
+    SingleLinkedList *Current = *Head;
+    SingleLinkedList *Prev = nullptr;
 
     while (Current)
     {
@@ -175,13 +179,15 @@ short   deleteNodeInSingleLL(SingleLinkedList **Head , int to_delete)
         Current = Current->next;
     }
 
-    if (!Current)
+    if (!Current || !Previous)
         return 1;
+
     else if (to_delete == Current->data)
     {
         Previous->next = Current->next;
         delete(Current);
     }
+
     return 0;
 }
 
@@ -194,7 +200,7 @@ short   deleteFirstNode(SingleLinkedList **Head)
     SingleLinkedList    *Current;
 
     Current = *Head;
-    *Head = Current->next;
+    *Head = (*Head)->next;
     delete(Current);
 
     return 0;
@@ -210,14 +216,14 @@ short   deleteLastNode(SingleLinkedList **Head)
     Current = *Head;
     Previous = nullptr;
 
-    if (!(*Head)->next)     // Head is last Node and after it is nullptr
+    if (!(*Head)->next)     // Head is last Node and after Head is a nullptr
     {
         delete(*Head);
         *Head = nullptr;
         return 0;
     }
     
-    while (Current->next)
+    while (Current && Current->next)
     {
         Previous = Current;
         Current = Current->next;
@@ -256,11 +262,16 @@ int main()
     // insertAtEndOfSingleLL(&Head, 3);
     // insertAtEndOfSingleLL(&Head, 4);
     // insertAtEndOfSingleLL(&Head, 5);
+
     // printSingleLL(Head);
 
     // deleteNodeInSingleLL(&Head, 5);
     // printSingleLL(Head);
-    // deleteNodeInSingleLL(&Head, 2);
+
+    // deleteNodeInSingleLL(&Head, 1);
+    // printSingleLL(Head);
+
+    // deleteNodeInSingleLL(&Head, 3);
     // printSingleLL(Head);
 
 
@@ -307,9 +318,9 @@ int main()
     
     deleteLastNode(&Head);
     printSingleLL(Head);
-    deleteLastNode(&Head);
-    deleteLastNode(&Head);
 
+    deleteLastNode(&Head);
+    deleteLastNode(&Head);
     printSingleLL(Head);
 
     return 0;
@@ -339,12 +350,14 @@ void    insertAtEndTests()
     insertAtEndOfSingleLL(&Head , 3);
     insertAtEndOfSingleLL(&Head , 4);
     insertAtEndOfSingleLL(&Head , 5);
+    printSingleLL(Head);
     insertAtBeginingSingleLL(&Head, 0);
     printSingleLL(Head);
 
     SingleLinkedList *Node = findNodeSingleLL(Head, 3);
 
     insertAfterNodeSingleLL(&Node, 33);
+    printSingleLL(Head);
     insertBeforeNodeSingleLL(&Head, Node, 33);
     printSingleLL(Head);
 }

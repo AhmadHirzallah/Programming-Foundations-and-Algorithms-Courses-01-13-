@@ -30,6 +30,7 @@ int main()
     std::cout << "Float Value:  " << UnionOfTypes.floatVal << std::endl << "\n\n";
     
     UnionOfTypes.charVal = 'Z';
+    
     std::cout << "Character Value:  " << UnionOfTypes.charVal << std::endl;
     std::cout << "Interger Value:  " << UnionOfTypes.intValue << std::endl << "\n\n";
     

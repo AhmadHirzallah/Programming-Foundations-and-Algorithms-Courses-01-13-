@@ -53,6 +53,10 @@ SingleLinkedList   *findNodeSingleLL(SingleLinkedList *Head, int data)
 
 short   isNodeExistByDataSingleLL(SingleLinkedList *Head, int data)
 {
+    SingleLinkedList *Node = findNodeSingleLL(Head, data);
+    return ((Node == nullptr) ? 0 : 1);
+    
+    /*
     if (!Head)
         return 0;
 
@@ -64,7 +68,7 @@ short   isNodeExistByDataSingleLL(SingleLinkedList *Head, int data)
     }
 
     return 0;       // False Not Exist
-    
+    */    
 }
 
 
@@ -89,10 +93,10 @@ int main()
     system("clear");
 
 
-    insertAtBeginingAndFindAndIsExistTests();
+    // insertAtBeginingAndFindAndIsExistTests();
+
 
     //  Insert After Node Tests Are Below
-
     SingleLinkedList *Head;
     insertAtBeginingSingleLL(&Head, 1);
     insertAtBeginingSingleLL(&Head, 2);
@@ -168,16 +172,16 @@ void    insertAtBeginingAndFindAndIsExistTests()
     SingleLinkedList *Head = Node1;
     SingleLinkedList *NewNode;
     if ((NewNode = findNodeSingleLL(Head, 1)))
-        std::cout << "The Node is Exist and the Data : " << NewNode->data << "  is Found Successfully.\n";
+        std::cout << "The Node is Exist and the Data : (" << NewNode->data << ")  is Found Successfully.\n";
     else
         std::cout << "The Node is'nt Exist and the Data ISNOT Found .\n";
 
     std::cout <<"\n\n\n";
     int x = 7;
     if ((NewNode = findNodeSingleLL(Head, x)))
-        std::cout << "The Node is Exist and the Data : " << NewNode->data << "  is Found Successfully. :)\n";
+        std::cout << "The Node is Exist and the Data : (" << NewNode->data << ")  is Found Successfully. :)\n";
     else
-        std::cout << "The Node is'nt Exist and the Data:  " << x << " ISNOT Found. :( \n";
+        std::cout << "The Node is'nt Exist and the Data:  (" << x << ") ISNOT Found. :( \n";
 
     std::cout <<"\n\n\n";
 
