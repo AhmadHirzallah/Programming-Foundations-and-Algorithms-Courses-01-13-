@@ -129,6 +129,7 @@ private:
 
 			static short	_ShowUsersManagementMenuScreen()
 			{
+
 				// std::cout << "\nManage Users Menu Screen Will be here...\n";
 				if(!CheckScreenAccessRights(clsBankUser::E_USERS_PERMISSIONS::PER_MANAGE_USERS))
 				{
@@ -136,8 +137,8 @@ private:
 						return -44;			//		 The current user is deleted flag; Logout!
 
 					return 0;
-
 				}
+
 				else			//	Press any key to back to main menu. (Because it will back immidietly without pressing any key)
 				{
 					std::cout << "\n" << CoreUtilities::Tabs(7) << "Press any key to go back to Main Menu...\n";
@@ -146,6 +147,7 @@ private:
 					std::cin.get();
 					return 0;
 				}
+
 			}
 
 

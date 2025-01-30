@@ -78,6 +78,8 @@ short   insertAfterNodeSingleLL(SingleLinkedList **aNode, int insertData)
         return 1;
 
     SingleLinkedList *NewNode = new SingleLinkedList();
+    if (!NewNode)
+        return 2;
 
     NewNode->data = insertData;
     NewNode->next = (*aNode)->next;
@@ -96,35 +98,45 @@ int main()
     // insertAtBeginingAndFindAndIsExistTests();
 
 
-    //  Insert After Node Tests Are Below
-    SingleLinkedList *Head;
-    insertAtBeginingSingleLL(&Head, 1);
-    insertAtBeginingSingleLL(&Head, 2);
-    insertAtBeginingSingleLL(&Head, 5);
-    insertAtBeginingSingleLL(&Head, 10);
-    printSingleLL(Head);
+
+
+
+
+
+    //  ****************** Insert After Node Tests Are Below
+
+    // SingleLinkedList *Head;
+    // insertAtBeginingSingleLL(&Head, 1);
+    // insertAtBeginingSingleLL(&Head, 2);
+    // insertAtBeginingSingleLL(&Head, 5);
+    // insertAtBeginingSingleLL(&Head, 10);
+    // printSingleLL(Head);
     
     
-    SingleLinkedList *Finded = findNodeSingleLL(Head, 5);
-    insertAfterNodeSingleLL(&Finded , 6);
-    printSingleLL(Head);
-    insertAfterNodeSingleLL(&Finded , 7);
-    printSingleLL(Head);
+    // SingleLinkedList *Finded = findNodeSingleLL(Head, 5);
+    // insertAfterNodeSingleLL(&Finded , 6);
+    // printSingleLL(Head);
+    // insertAfterNodeSingleLL(&Finded , 7);
+    // printSingleLL(Head);
 
-    Finded = findNodeSingleLL(Head, 6);
-    insertAfterNodeSingleLL(&Finded , 7);
-    printSingleLL(Head);
-
-
-    Finded = findNodeSingleLL(Head, 1);
-    insertAfterNodeSingleLL(&Finded , 100);
-    printSingleLL(Head);
+    // Finded = findNodeSingleLL(Head, 6);
+    // insertAfterNodeSingleLL(&Finded , 7);
+    // printSingleLL(Head);
 
 
+    // Finded = findNodeSingleLL(Head, 1);
+    // insertAfterNodeSingleLL(&Finded , 100);
+    // printSingleLL(Head);
 
-    Finded = findNodeSingleLL(Head, 22);
-    insertAfterNodeSingleLL(&Finded , 10000);
-    printSingleLL(Head);
+
+    // Finded = findNodeSingleLL(Head, 10);
+    // insertAfterNodeSingleLL(&Finded , 1111);
+    // printSingleLL(Head);
+
+
+    // Finded = findNodeSingleLL(Head, 22);
+    // insertAfterNodeSingleLL(&Finded , 10000);
+    // printSingleLL(Head);
     return 0;
 }
 

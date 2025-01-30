@@ -4,7 +4,7 @@
 //  unions are user defined datatype (like structs and enums) ;;    And as we said before all the datatypes(also primitive like int , array , struct, union) are considered a datastructures.
 //  The Main reason of union is to save memory.
 //  When you define 3 Datatypes inside union; All will share/have the same memory space. ; so not like struct that will have 3 different memory spaces and location; we will have 1 and 1 < 3 so we save memory.
-//  Union space of memory will be for the Largest Data Type between int , float , class , ... etc
+//  Union space of memory will be for the Largest (Member) Data Type between int , float , class , ... etc
 
 union U_MyUnion
 {
@@ -30,7 +30,6 @@ int main()
     std::cout << "Float Value:  " << UnionOfTypes.floatVal << std::endl << "\n\n";
     
     UnionOfTypes.charVal = 'Z';
-    
     std::cout << "Character Value:  " << UnionOfTypes.charVal << std::endl;
     std::cout << "Interger Value:  " << UnionOfTypes.intValue << std::endl << "\n\n";
     

@@ -3,7 +3,7 @@
 
 
 //  Maps Can be said to be an Associative Array
-//  Depends on : Key(Not Index; Can't be repeated; repetition will override) With Value
+//  Depends on : 1.Key (Not Index; Can't be repeated; repetition will override) With 2.Value
 //  C# , Python : The Map is Called : Dictionary.
 
 //  in c++ ; std::map is a container in the STL (Standard Template Library) that represents an (Associative Arry)
@@ -33,7 +33,10 @@ int main()
 
 
     std::cout << "\n\n---------------------\n\nUsing .find Method of (Maps/Dictionaries):\n\n";
+
     std::string SeachFor = "Ahmad";
+
+    // if (StudentsGradesMap.find("Ahmad") != StudentsGradesMap.end())
     if (StudentsGradesMap.find(SeachFor) != StudentsGradesMap.end())
         std::cout << SeachFor  << "'s Grade is:  " << StudentsGradesMap[SeachFor] << "\n\n";
     else

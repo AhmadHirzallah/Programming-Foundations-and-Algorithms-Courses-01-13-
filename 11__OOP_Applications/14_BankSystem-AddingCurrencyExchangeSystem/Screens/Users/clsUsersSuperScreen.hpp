@@ -29,7 +29,7 @@ protected:
 				permissions = 0;
 
 
-				printf("\n\n(Answer with (Y) to give the specified Permission)\n");
+				printf("\n\n(Answer with (y) to give the specified Permission)\n");
 
 
 				printf("\n\nDo you want to give a Full Access?  ");

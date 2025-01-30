@@ -109,12 +109,12 @@ short   insertBeforeNodeSingleLL(SingleLinkedList **Head, SingleLinkedList *Node
 
     SingleLinkedList *NewNode = new SingleLinkedList();
     if (!NewNode)
-        return 1;
+        return 2;
 
     NewNode->data = insertData;
 
     SingleLinkedList *Current = *Head;
-    SingleLinkedList *Prev = nullptr;
+    SingleLinkedList *Prev = Current;
 
     while (Current)
     {
@@ -128,13 +128,15 @@ short   insertBeforeNodeSingleLL(SingleLinkedList **Head, SingleLinkedList *Node
         Current = (Current)->next;            // 1 -> 2 -> 3 -> Prev ->XXX(New) --->    Current(Searched Node) -> 8 
     }
 
-    return 1;
+    return 3;
 }
 
 
 short   insertAtEndOfSingleLL(SingleLinkedList **Head, int to_insert)
 {
     SingleLinkedList *NewNode = new SingleLinkedList();
+    if (!NewNode)
+        return 1;
 
     NewNode->data = to_insert;
     NewNode->next = nullptr;
@@ -147,9 +149,9 @@ short   insertAtEndOfSingleLL(SingleLinkedList **Head, int to_insert)
 
     SingleLinkedList *Current = *Head;
     if (!Current)
-        return 1;
+        return 2;
 
-    while (Current->next)       // Current->Next != NULL        // Will Reach Last Node
+    while (Current && Current->next)       // Current->Next != NULL        // Will Reach Last Node
         Current = Current->next;
 
     Current->next = NewNode;
@@ -181,7 +183,6 @@ short   deleteNodeInSingleLL(SingleLinkedList **Head , int to_delete)
 
     if (!Current || !Previous)
         return 1;
-
     else if (to_delete == Current->data)
     {
         Previous->next = Current->next;
@@ -212,16 +213,16 @@ short   deleteLastNode(SingleLinkedList **Head)
     if (!(*Head))
         return 1;
 
-    SingleLinkedList    *Current,  *Previous;
-    Current = *Head;
-    Previous = nullptr;
-
     if (!(*Head)->next)     // Head is last Node and after Head is a nullptr
     {
         delete(*Head);
         *Head = nullptr;
         return 0;
     }
+
+    SingleLinkedList    *Current,  *Previous;
+    Current = *Head;
+    Previous = nullptr;
     
     while (Current && Current->next)
     {
@@ -265,16 +266,22 @@ int main()
 
     // printSingleLL(Head);
 
+    // std::cout << "\n\nDeleting Node (5) in Single LL:\n\n" ;
     // deleteNodeInSingleLL(&Head, 5);
     // printSingleLL(Head);
 
+    // std::cout << "\n\nDeleting Head Node (1) in Single LL:\n\n" ;
     // deleteNodeInSingleLL(&Head, 1);
     // printSingleLL(Head);
 
+    // std::cout << "\n\nDeleting Middle Node (3) in Single LL:\n\n" ;
     // deleteNodeInSingleLL(&Head, 3);
     // printSingleLL(Head);
 
 
+    // std::cout << "\n\nDeleting All Nodes (2,4) in Single LL:\n\n" ;
+    // deleteNodeInSingleLL(&Head, 2);
+    // deleteNodeInSingleLL(&Head, 4);
 
 
 
@@ -290,9 +297,11 @@ int main()
     // insertAtEndOfSingleLL(&Head, 6);
     // printSingleLL(Head);
 
+    // std::cout << "\nDeleting 1'st Node (1) in Single LL:\n\n" ;
     // deleteFirstNode(&Head);
     // printSingleLL(Head);
 
+    // std::cout << "\nDeleting 3 Nodes from Begining in sequence in Single LL:\n\n" ;
     // deleteFirstNode(&Head);
     // deleteFirstNode(&Head);
     // deleteFirstNode(&Head);
@@ -313,9 +322,9 @@ int main()
     insertAtEndOfSingleLL(&Head, 4);
     insertAtEndOfSingleLL(&Head, 5);
     insertAtEndOfSingleLL(&Head, 6);
-
     printSingleLL(Head);
     
+    std::cout << "\nDeleting Last Node in Single LL:\n\n" ;
     deleteLastNode(&Head);
     printSingleLL(Head);
 
@@ -346,11 +355,13 @@ void    insertAtEndTests()
 
     insertAtEndOfSingleLL(&Head , 1);
     printSingleLL(Head);
+
     insertAtEndOfSingleLL(&Head , 2);
     insertAtEndOfSingleLL(&Head , 3);
     insertAtEndOfSingleLL(&Head , 4);
     insertAtEndOfSingleLL(&Head , 5);
     printSingleLL(Head);
+
     insertAtBeginingSingleLL(&Head, 0);
     printSingleLL(Head);
 
@@ -358,6 +369,7 @@ void    insertAtEndTests()
 
     insertAfterNodeSingleLL(&Node, 33);
     printSingleLL(Head);
+
     insertBeforeNodeSingleLL(&Head, Node, 33);
     printSingleLL(Head);
 }
@@ -372,8 +384,17 @@ void    insertBeforeNodeTests()
 
     printSingleLL(Head);
 
+
     SingleLinkedList *Finded = findNodeSingleLL(Head, 11);
     if (!insertBeforeNodeSingleLL(&Head, Finded, 1))
         printSingleLL(Head);
     else std::cout << "\n Not Found :(\n\n";
+
+
+
+    Finded = findNodeSingleLL(Head, 51);
+    if (!insertBeforeNodeSingleLL(&Head, Finded, 1))
+        printSingleLL(Head);
+    else std::cout << "\n Not Found :(\n\n";
+
 }

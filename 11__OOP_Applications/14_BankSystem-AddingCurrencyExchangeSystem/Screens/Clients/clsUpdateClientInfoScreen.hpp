@@ -27,7 +27,7 @@ public:
         AccNbr = InputValidator::readString("\n\nPlease enter the Account Number:  ");
         while (!(clsBankClient::isClientExist(AccNbr)))
         {
-            AccNbr = InputValidator::readString("Invalide Entered Number.\nPlease enter the Account Number Again or Press (q) to quit:  ");
+            AccNbr = InputValidator::readString("Invalide Entered Number of Client.\nPlease enter the Account Number Again or Press (q) to quit:  ");
             quit_fl = tolower(AccNbr[0]);
             if (quit_fl == 'q')
                 return (2); // Indicating successful quit
@@ -45,13 +45,13 @@ public:
             printClientInfoCard(Client);
             return (0);
         }
-        else if (Client.Save() != clsBankClient::en_SaveResults::SV_SUCCEEDED)
+        else
         {
             std::cout <<  "\nError account was not saved because it's Empty" << std::endl;
             return (-1);
         }
 
-        return (0); //Indicating success in update
+        return (2); //Indicating that it is NOT SUCCESSFULLY in update
     }
 
 };

@@ -10,16 +10,15 @@ short   insertAtBegining(DoubleLinkedList **Head, int value)
     if (!New)
         return 1;
 
-    (New)->prev = nullptr;
     (New)->value = value;
-
+    (New)->prev = nullptr;
 
     if (!(*Head))
         (New)->next = nullptr;
     else
     {
-        (*Head)->prev = New;
         (New)->next = (*Head);
+        (*Head)->prev = New;
     }
 
     *Head = New;
@@ -29,6 +28,12 @@ short   insertAtBegining(DoubleLinkedList **Head, int value)
 
 void    printNodeDetails(DoubleLinkedList *Node)
 {
+    if (!Node)
+    {
+        std::cout << "NULL";
+        return ;
+    }
+
     if (Node->prev)
         std::cout << Node->prev->value;
     else
@@ -50,7 +55,7 @@ void    printListDetails(DoubleLinkedList *Head)
 
     if (!Head)
     {
-        std::cout << "(NO DATA // LINKED LIST IS EMPTY).\n\n";
+        std::cout << "(NULL)\n(NO DATA // LINKED LIST IS EMPTY).\n\n";
         return ;
     }
         
@@ -83,6 +88,7 @@ void    printList(DoubleLinkedList *Head)
         std::cout << "  <-->  "<< (Head)->value ;
         Head = Head->next;
     }
+
     if (Head == nullptr)
         std::cout << "  <-->  "<< "NULL";
 
@@ -100,7 +106,7 @@ DoubleLinkedList    *FindNodeDoubleLL(DoubleLinkedList **Head, int val)
 
     while ((Current))
     {
-        if ((Current)->value == val)
+        if (((Current)->value) == val)
             return (Current);
         
         Current = Current->next;
@@ -110,33 +116,39 @@ DoubleLinkedList    *FindNodeDoubleLL(DoubleLinkedList **Head, int val)
 }
 
 
+short   isNodeExist(DoubleLinkedList **Head, int val)
+{
+    DoubleLinkedList    *Node = FindNodeDoubleLL(Head, val);
+    return ((Node) ? 1 : 0); 
+}
+
 
 short   insertAfterNodeDoubleLL(DoubleLinkedList **Node, int val)
 {
-    if (!(*Node))
+    if (!Node || !(*Node))
         return 1;
 
-    DoubleLinkedList    *New = new DoubleLinkedList();
-    if (!(New))
-        return 2;
+    DoubleLinkedList *New = nullptr;
 
-    if (!(*Node)->next) // If Last Node;
+    try
     {
-        New->next = nullptr;
-        (*Node)->next = New;
-        New->prev = (*Node);
-
-        return 0;
+        New = new DoubleLinkedList();
+    }
+    catch(const std::bad_alloc &)
+    {
+        return 2;
     }
 
     New->value = val;
-    New->next = (*Node)->next;
     New->prev = *Node;
-    New->next->prev = New;
+    New->next = (*Node)->next;
+
+    if (New->next)
+        New->next->prev = New;
+
     (*Node)->next = New;
 
     return 0;
-
 }
 
 
@@ -144,26 +156,31 @@ short   insertAfterNodeDoubleLL(DoubleLinkedList **Node, int val)
 
 short   insertBeforeNodeDoubleLL(DoubleLinkedList **Head, DoubleLinkedList *Node, int insertData)
 {
-    if (!(*Head) || !(Node))
+    if (!Head || !(*Head) || !(Node))
         return 1;
+
+    if (*Head == Node)
+    {
+        insertAtBegining(Head, insertData);
+        return 0;
+
+        /*
+            NewNode->next = *Head;
+            NewNode->prev = nullptr;
+            (*Head)->prev = NewNode;
+            *Head = NewNode;
+            return 0;
+        */
+    }
 
     DoubleLinkedList *NewNode = new DoubleLinkedList();
     if (!NewNode)
         return 1;
 
-    DoubleLinkedList *Current = *Head;
-    DoubleLinkedList *Prev = nullptr;
-
     NewNode->value = insertData;
 
-    if (*Head == Node)
-    {
-        NewNode->next = *Head;
-        (*Head)->prev = NewNode;
-        *Head = NewNode;
-        return 0;
-    }
-
+    DoubleLinkedList *Current = *Head;
+    DoubleLinkedList *Prev = Current;
 
     while (Current)
     {
@@ -206,8 +223,8 @@ short   insertAtEndOfDoubleLL(DoubleLinkedList **Head, int to_insert)
     while (Current->next)       // Current->Next != NULL        // Will Reach Last Node
         Current = Current->next;
 
-    Current->next = NewNode;
     NewNode->prev = Current;
+    Current->next = NewNode;
 
     return 0;
 }
@@ -218,7 +235,7 @@ short   insertAtEndOfDoubleLL(DoubleLinkedList **Head, int to_insert)
 
 short   deleteNode(DoubleLinkedList **Head , DoubleLinkedList *ToDeleteNode)
 {
-    if (!(*Head) || !(ToDeleteNode))
+    if (!(*Head) || !ToDeleteNode)
         return 1;
 
     if ((*Head) == ToDeleteNode)
@@ -230,13 +247,10 @@ short   deleteNode(DoubleLinkedList **Head , DoubleLinkedList *ToDeleteNode)
         return 0;
     }
     if (ToDeleteNode->next)
-    {
         ToDeleteNode->next->prev = ToDeleteNode->prev;
-    }
+    
     if (ToDeleteNode->prev)
-    {
         ToDeleteNode->prev->next = ToDeleteNode->next;
-    }
 
     delete ToDeleteNode;
     return 0;
@@ -250,13 +264,13 @@ short   deleteFirstNode(DoubleLinkedList **Head)
     if (!(*Head))
         return 1;
 
-    DoubleLinkedList    *HeadTemp;
-    HeadTemp = *Head;
+    DoubleLinkedList    *TempHead;
+    TempHead = *Head;
     
     (*Head) = (*Head)->next;
     if ((*Head))
         (*Head)->prev = nullptr;
-    delete HeadTemp;
+    delete TempHead;
 
     return 0;
 }
@@ -275,13 +289,13 @@ short   deleteLastNode(DoubleLinkedList **Head)
         return 0;
     }
 
-    DoubleLinkedList    *Current = *Head;
-    while (Current->next->next)             // Inorder to reach the (Previos of the last Node)
-        Current =  Current->next;
+    DoubleLinkedList    *BeforeLastNode = *Head;
+    while (BeforeLastNode->next->next)             // Inorder to reach the (Previous of the last Node)
+        BeforeLastNode =  BeforeLastNode->next;
 
-    DoubleLinkedList    *LastNode = Current->next;
+    DoubleLinkedList    *LastNode = BeforeLastNode->next;
 
-    Current->next = nullptr;
+    BeforeLastNode->next = nullptr;
     delete LastNode;
 
     return 0;
@@ -296,7 +310,7 @@ int main()
     system("clear");
 
 
-    //      *****************************   MY FindNode Tests
+    //      *****************************   My insert At Begining Tests :
 
     // DoubleLinkedList    *Current;
 
@@ -304,20 +318,48 @@ int main()
     // insertAtBegining(&Current, 2);
     // insertAtBegining(&Current, 1);      //  1 <-> 2 <-> 3
 
-
-
-
     // printList(Current);
     // printListDetails(Current);
 
+
+
+
+
+
+
+
+
+
+    //      *****************************   MY FindNode Tests :
+
+    // DoubleLinkedList    *Current = nullptr;
+
+    // insertAtBegining(&Current, 3);
+    // insertAtBegining(&Current, 2);
+    // insertAtBegining(&Current, 1);
+    // printList(Current);
+
     // int find = 2;
     // DoubleLinkedList *Node = FindNodeDoubleLL(&Current, find);
-    // std::cout << "\nChecking (Finding) Node with value: " << Node->value << std::endl << std::endl;
+    // std::cout << "\nChecking (Finding) Node with value: " << find << std::endl << std::endl;
     // if (Node)
     //     std::cout << "Node is found: " << Node->value << std::endl << std::endl;
     // else
     //     std::cout << "Node isn't found.\n"  << std::endl;
 
+
+
+    // find = 8;
+    // Node = FindNodeDoubleLL(&Current, find);
+    // std::cout << "\nChecking (Finding) Node with value: " << find << std::endl << std::endl;
+    // if (Node)
+    //     std::cout << "Node is found: " << Node->value << std::endl << std::endl;
+    // else
+    //     std::cout << "Node isn't found.\n"  << std::endl;
+
+
+
+    // insertAtBegining(&Current, 8);
     // find = 8;
     // Node = FindNodeDoubleLL(&Current, find);
     // std::cout << "\nChecking (Finding) Node with value: " << find << std::endl << std::endl;
@@ -332,10 +374,9 @@ int main()
 
 
 
-
     //      *****************************   MY Insert After Tests:
 
-    // DoubleLinkedList    *Current;
+    // DoubleLinkedList    *Current = nullptr;
 
     // insertAtBegining(&Current, 3);
     // insertAtBegining(&Current, 2);
@@ -346,7 +387,7 @@ int main()
     // printListDetails(Current);
 
     // DoubleLinkedList *Finded = FindNodeDoubleLL(&Current , 2);
-    // std::cout << "----------\n\nInserting After a Node:\n";
+    // std::cout << "----------\n\nInserting After a Node a (22):\n";
     // insertAfterNodeDoubleLL(&Finded, 22);                            //  1 <-> 2 <-> 10 <-> 3
 
     // printList(Current);
@@ -354,13 +395,19 @@ int main()
 
 
     // Finded = FindNodeDoubleLL(&Current , 1);
-    // std::cout << "----------\n\nInserting After a Node:\n";
+    // std::cout << "----------\n\nInserting After a Node (1) a number (11):\n";
     // insertAfterNodeDoubleLL(&Finded, 11);                            //  1 <-> 2 <-> 10 <-> 3
 
     // printList(Current);
     // printListDetails(Current);
 
 
+    // Finded = FindNodeDoubleLL(&Current , 3);
+    // std::cout << "----------\n\nInserting After a Node (3) a number (33):\n";
+    // insertAfterNodeDoubleLL(&Finded, 33);                            //  1 <-> 2 <-> 10 <-> 3
+
+    // printList(Current);
+    // printListDetails(Current);
 
 
 
@@ -375,11 +422,21 @@ int main()
     // insertAtBegining(&Current, 2);
     // insertAtBegining(&Current, 1);      //  1 <-> 2 <-> 3
 
+    // printList(Current);
+    // printListDetails(Current);
+
+
+    // DoubleLinkedList *Finded = FindNodeDoubleLL(&Current , 1);
+    // std::cout << "----------\n\nInserting Before a Node:\n";
+    // insertBeforeNodeDoubleLL(&Current, Finded, 11);                            //  1 <-> 2 <-> 10 <-> 3
 
     // printList(Current);
     // printListDetails(Current);
 
-    // DoubleLinkedList *Finded = FindNodeDoubleLL(&Current , 2);
+
+
+
+    // Finded = FindNodeDoubleLL(&Current , 2);
     // std::cout << "----------\n\nInserting Before a Node:\n";
     // insertBeforeNodeDoubleLL(&Current, Finded, 22);                            //  1 <-> 2 <-> 10 <-> 3
 
@@ -387,9 +444,11 @@ int main()
     // printListDetails(Current);
 
 
-    // Finded = FindNodeDoubleLL(&Current , 1);
+
+
+    // Finded = FindNodeDoubleLL(&Current , 3);
     // std::cout << "----------\n\nInserting Before a Node:\n";
-    // insertBeforeNodeDoubleLL(&Current ,Finded, 11);                            //  1 <-> 2 <-> 10 <-> 3
+    // insertBeforeNodeDoubleLL(&Current ,Finded, 33);                            //  1 <-> 2 <-> 10 <-> 3
 
     // printList(Current);
     // printListDetails(Current);
@@ -412,9 +471,10 @@ int main()
     // insertAtBegining(&Current, 2);
     // insertAtBegining(&Current, 1);      //  1 <-> 2 <-> 3
 
-
     // printList(Current);
     // printListDetails(Current);
+    
+
 
     // std::cout << "----------\n\nInserting At End :\n";
     // insertAtEndOfDoubleLL(&Current, 333);
@@ -423,7 +483,8 @@ int main()
     // printListDetails(Current);
 
 
-    // std::cout << "----------\n\nInserting Before a Node:\n";
+
+    // std::cout << "----------\n\nInserting At End :\n";
     // insertAtEndOfDoubleLL(&Current, 444);
 
     // printList(Current);
@@ -444,26 +505,30 @@ int main()
     // insertAtEndOfDoubleLL(&Current, 1);
     // insertAtEndOfDoubleLL(&Current, 2);
     // insertAtEndOfDoubleLL(&Current, 3);     //  1 <-> 2 <-> 3
+    // insertAtEndOfDoubleLL(&Current, 4);     //  1 <-> 2 <-> 3
+    // insertAtEndOfDoubleLL(&Current, 5);     //  1 <-> 2 <-> 3
     
     // printList(Current);
     // printListDetails(Current);
 
+
+
+
     // std::cout << "----------\n\nDeleting a Specific Node:\n";
 
+    // DoubleLinkedList    *Node = FindNodeDoubleLL(&Current, 1);
+    // deleteNode(&Current, Node);
+    // printList(Current);
+    // printListDetails(Current);
 
-    // DoubleLinkedList    *Node = FindNodeDoubleLL(&Current, 2);
+
+    // Node = FindNodeDoubleLL(&Current, 5);
     // deleteNode(&Current, Node);
     // printList(Current);
     // printListDetails(Current);
 
 
     // Node = FindNodeDoubleLL(&Current, 3);
-    // deleteNode(&Current, Node);
-    // printList(Current);
-    // printListDetails(Current);
-
-
-    // Node = FindNodeDoubleLL(&Current, 1);
     // deleteNode(&Current, Node);
     // printList(Current);
     // printListDetails(Current);
@@ -487,8 +552,9 @@ int main()
     // printList(Current);
     // printListDetails(Current);
 
-    // std::cout << "\n\nDeleting First Node:\n";
 
+
+    // std::cout << "\n\nDeleting First Node:\n";
 
     // deleteFirstNode(&Current);
     // printList(Current);
@@ -527,12 +593,14 @@ int main()
     printList(Current);
     printListDetails(Current);
 
+
+
+
     std::cout << "\n\nDeleting Last Node:\n";
-
-
     deleteLastNode(&Current);
     printList(Current);
     printListDetails(Current);
+
 
     std::cout << "\n\n----------\n\n";
 
@@ -540,6 +608,7 @@ int main()
     deleteLastNode(&Current);
     printList(Current);
     printListDetails(Current);
+
 
     std::cout << "\n\n----------\n\n";
 

@@ -51,6 +51,8 @@ public:
             std::cout <<  "\nError account was NOT saved!" << std::endl;
             return (-1);
         }
+
+        return (-1);
     }
 
 };

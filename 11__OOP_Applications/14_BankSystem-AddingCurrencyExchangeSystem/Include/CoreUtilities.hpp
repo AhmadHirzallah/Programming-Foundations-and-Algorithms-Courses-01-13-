@@ -334,7 +334,9 @@ class	CoreUtilities
 				}
 				if (number >= 1000000000 && number <= 1999999999) {
 					return ("One Billion " + NumberToText(number % 1000000000));
-				} else {
+				}
+				else
+				{
 					return (NumberToText(number / 1000000000) + "Billions " 
 							+ NumberToText(number % 1000000000));
 				}

@@ -48,12 +48,12 @@ public:
         if (User.Save() == clsBankUser::en_SaveResults::SV_SUCCEEDED)
         {
             std::cout <<  "\nAccount Updated Successfully :-)\n" << std::endl;
-            printUserInfoCard(User);
             if (g_ActiveUser.Username() == User.Username())
                 g_ActiveUser = User;
+            printUserInfoCard(User);
             return (0);     //Indicating success in update
         }
-        else if (User.Save() != clsBankUser::en_SaveResults::SV_SUCCEEDED)
+        else
         {
             std::cout <<  "\nError account Failed to save :-(\n" << std::endl;
             return (-1);

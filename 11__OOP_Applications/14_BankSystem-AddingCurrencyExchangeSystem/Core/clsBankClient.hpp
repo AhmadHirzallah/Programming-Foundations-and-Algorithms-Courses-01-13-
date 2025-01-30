@@ -23,9 +23,9 @@ public:
 			struct s_TransferRecord
 			{
 				std::string	DateAndTime;
+				std::string SenderUsername;
 				std::string	SenderID;
 				std::string ReceiverID;
-				std::string SenderUsername;
 				double	transfer_amount;
 				double	sender_balance_after;
 				double	receiver_balance_after;
@@ -142,11 +142,11 @@ private:
 							if (!(_SaveClientsObjsToFile(ClientsVec)))
 								return (0);
 							else
-								break;
+								return (-1);	// Case of Error ::: Saving Failed
 						}
 					}
 					
-				return (-1);	// Case of Error ::: Updating Failed
+				return (-2);	// Case of Error ::: Updating Failed
 			}
 
 
@@ -196,6 +196,8 @@ private:
 			{
 				s_TransferRecord TransferRecord_s;
 				clsBankClient Receiver = Find(ReceiverID_Nbr);
+				// if (!Receiver.isClientExist())
+				// 	return ;
 
 				TransferRecord_s.DateAndTime = DateUtils::getSystemDateAndTimeStr();
 				TransferRecord_s.SenderID = this->AccountID();
@@ -211,8 +213,8 @@ private:
  
 			static short	_RegisterTransferLogIntoFile(s_TransferRecord TransferRecord_s)
 			{
-				std::string TransferLogAsLine = _ConvertTransferRecordToLine(TransferRecord_s);
 				std::fstream	FileSystem;
+				std::string	TransferLogAsLine = _ConvertTransferRecordToLine(TransferRecord_s);
 
 				FileSystem.open("Data/TransferLogs.txt", std::ios::app | std::ios::out);
 
@@ -452,7 +454,10 @@ Therefore, if you are running the program from the directory where main.cpp resi
 				while (IterVec != ClientsVec.end())
 				{
 					if (this->AccountID() == IterVec->AccountID())
+					{
 						IterVec = ClientsVec.erase(IterVec);		//		 Erase returns the next valid iterator)
+						break;
+					}
 					else
 						++IterVec;
 				}
@@ -512,7 +517,10 @@ Therefore, if you are running the program from the directory where main.cpp resi
 
 				balances_summation = 0;
 				for (clsBankClient &Client : ClientsVec)
-					balances_summation += Client.balance();
+				{
+					if (Client.balance() >= 0)
+						balances_summation += Client.balance();
+				}
 				
 				return (balances_summation);
 			}
@@ -523,8 +531,8 @@ Therefore, if you are running the program from the directory where main.cpp resi
 				if (deposit_val > 0)
 				{
 					setBalance(balance() + deposit_val);
-					Save();
-					return (0);
+					if (Save() == en_SaveResults::SV_SUCCEEDED)
+						return (0);
 				}
 				
 				return (1); 		// Failed
@@ -536,8 +544,8 @@ Therefore, if you are running the program from the directory where main.cpp resi
 				if (withdraw_val > 0 && (withdraw_val <= balance()))
 				{
 					setBalance(balance() - withdraw_val);
-					Save();
-					return (0);
+					if (Save() == en_SaveResults::SV_SUCCEEDED)
+						return (0);
 				}
 
 				return (1); 		// Failed
@@ -558,8 +566,8 @@ Therefore, if you are running the program from the directory where main.cpp resi
 
 
 				this->Withdraw(transfer_amount);
-
-				ReceiverClient.Deposit(transfer_amount);
+				if (ReceiverClient.Deposit(transfer_amount))
+					return 1;		// Failed
 
 				s_TransferRecord TransferRecord_s = _FillTransferRecordStructData(ReceiverID_Nbr, transfer_amount);
 

@@ -119,8 +119,10 @@ protected:
 				if (!(g_ActiveUser.CheckAccessPermission(PERMISSION)))
 					return (0);			//	Successfully having Permission.
 				else
+				{
 					_ShowAccessDenied();
-
+					return(1);
+				}
 				return(1);
 			}
 

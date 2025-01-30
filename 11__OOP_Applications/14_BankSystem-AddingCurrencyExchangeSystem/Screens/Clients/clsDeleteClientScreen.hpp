@@ -46,8 +46,9 @@ public:
             std::cout << "\n\nClient is deleted Successfully!\n\n";
             printClientInfoCard(Client);
 			std::cout << "\n\n___________________________" << std::endl;
-            std::cout << "\n\nChecking if Client is exist in the Data File:";
 
+
+            std::cout << "\n\nChecking if Client is exist in the Data File:";
 //  Or We can Use this:
 //          if (!(clsBankClient::isClientExist(ID_Nbr)))
             if (!(Client.isClientExist()))

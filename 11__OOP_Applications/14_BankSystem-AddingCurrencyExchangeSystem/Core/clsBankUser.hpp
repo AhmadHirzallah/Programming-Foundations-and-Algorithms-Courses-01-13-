@@ -136,11 +136,11 @@ private:
                     if (!(_SaveUsersObjsToFile(clsBankUsersVec)))
                         return (0);             //Succeed in Saving.	 :)
                     else
-                        break;
+                        return (-1);	// Case of Error ::: Saving Failed
                 }
             }
             
-        return (-1);	// Case of Error ::: Updating Failed
+        return (-2);	// Case of Error ::: Updating Failed
     }
 
 
@@ -262,8 +262,8 @@ public:
 
 
     clsBankUser(E_MODE MODE, std::string Firstname, std::string Lastname , std::string Email, std::string PhoneNbr
-                , std::string Username, std::string Password, int permissions
-                )   : clsPerson(Firstname, Lastname, Email, PhoneNbr)
+                , std::string Username, std::string Password, int permissions) :
+                 clsPerson(Firstname, Lastname, Email, PhoneNbr)
     {
 
             _MODE = MODE;
@@ -433,7 +433,10 @@ public:
         while (IterVec != BankUsersVec.end())
         {
             if (this->Username() == IterVec->Username())
+            {
                 IterVec = BankUsersVec.erase(IterVec);		//		 Erase returns the next valid iterator)
+                break;
+            }
             else
                 ++IterVec;
         }
@@ -470,7 +473,7 @@ public:
         {
             if (isUserExist(this->Username()))
                 return (en_SaveResults::SV_FAILED_EXIST_ACCNT_NBR);
-            if (!(_AddNewUser()))
+            else if (!(_AddNewUser()))
             {
                 _MODE = E_MODE::UPDATE_MODE;
                 return (en_SaveResults::SV_SUCCEEDED);
@@ -502,10 +505,11 @@ public:
     {
         if (this->Permissions() == E_USERS_PERMISSIONS::PER_ALL)
             return (0);                 // Successfully Having Access Permission.
-        if ((this->Permissions() & PERMISSION) == PERMISSION) 
+        
+        else if ((this->Permissions() & PERMISSION) == PERMISSION) 
             return (0);                 // Successfully Having Access Permission.
 
-        return (1);                 // FAILED !! DON't Having Access Permission.
+        else return (1);                 // FAILED !! DON't Having Access Permission.
     }
 
 
