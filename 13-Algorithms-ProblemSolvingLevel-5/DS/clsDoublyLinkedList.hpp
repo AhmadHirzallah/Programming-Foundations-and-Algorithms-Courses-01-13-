@@ -1,6 +1,8 @@
 #pragma once
 #ifndef CLSDOUBLYLINKEDLIST_HPP
 # define CLSDOUBLYLINKEDLIST_HPP
+#include <optional>
+
 
 
 template <class T>
@@ -55,7 +57,7 @@ public:
 
             if (!Current)
             {
-                std::cout << "(NO DATA // LINKED LIST IS EMPTY).\n\n";
+                std::cout << "(NULL)\n(NO DATA // LINKED LIST IS EMPTY).\n\n";
                 return ;
             }
 
@@ -74,7 +76,23 @@ public:
             std::cout << "\n\n";
         }
 
+        void    Print()
+        {
+            Node *Current = Head;
 
+            if (!Current)
+            {
+                std::cout << "(NULL)\n(NO DATA // LINKED LIST IS EMPTY).\n\n";
+                return ;
+            }
+
+            while (Current)
+            {
+                std::cout << Current->data << "     ";
+                Current = Current->next;
+            }
+            std::cout << "\n\n";
+        }
 
 //  ************ LIST OPERATIONS **************
 
@@ -89,15 +107,16 @@ public:
             (New)->data = data;
             (New)->prev = nullptr;
 
-            if (!(Head))
+            if (!Head)
                 (New)->next = nullptr;
             else
             {
-                (New)->next = (Head);
-                (Head)->prev = New;
+                New->next = Head;
+                Head->prev = New;
             }
 
             Head = New;
+            _increaseSize();
             return 0;
         }
 
@@ -109,9 +128,9 @@ public:
 
             Node    *Current = Head;
 
-            while ((Current))
+            while (Current)
             {
-                if (((Current)->data) == val)
+                if ((Current->data) == val)
                     return (Current);
                 
                 Current = Current->next;
@@ -129,13 +148,12 @@ public:
         }
 
 
-        short   insertAfter(Node *Node, T val)
+        short   insertAfterNode(Node *Node, T val)
         {
             if (!Node)
                 return 1;
 
             typename clsDoublyLinkedList<T>::Node   *New = new typename clsDoublyLinkedList<T>::Node();
-
             if (!New)
                 return 2;
 
@@ -147,8 +165,38 @@ public:
                 New->next->prev = New;
 
             Node->next = New;
+            _increaseSize();
 
             return 0;
+        }
+
+
+        short   insertAfterIndex(long index, T val)
+        {
+            Node    *TheNode = GetNode(index);
+
+            if (!TheNode)
+                return 1;
+            insertAfterNode(TheNode, val);
+            return 0;
+
+            /*
+            // if (!TheNode)
+            //     return 1;
+
+            // Node    *NewNode = new Node();
+            // if (!NewNode)
+            //     return 2;
+            
+            // NewNode->data = val;
+            // NewNode->next = TheNode->next;
+            // NewNode->prev = TheNode;
+            // if (NewNode->next)
+            //     NewNode->next->prev = NewNode;
+            
+            // TheNode->next = NewNode;
+            // _increaseSize();
+            */
         }
 
 
@@ -167,10 +215,11 @@ public:
 
             if (TargetNode->prev)
                 TargetNode->prev->next = NewNode;
-            else // So No Prev; Prev = nullptr -> (Target = Head)
+            else // So No Prev; Prev = nullptr -> (TargetNode = Head)
                 Head = NewNode;
 
             TargetNode->prev = NewNode;
+            _increaseSize();
 
             return 0;
         }
@@ -178,9 +227,10 @@ public:
 
         short   insertAtEnd(T to_insert)
         {
-            Node *NewNode = new Node();
+            Node    *NewNode = new Node();
+
             if (!NewNode)
-                return 1;
+                return (1);
 
             NewNode->data = to_insert;
             NewNode->next = nullptr;
@@ -189,6 +239,7 @@ public:
             {
                 NewNode->prev = nullptr;    
                 Head = NewNode;
+                _increaseSize();
                 return 0;
             }
 
@@ -199,6 +250,7 @@ public:
 
             NewNode->prev = Current;
             Current->next = NewNode;
+            _increaseSize();
 
             return 0;
         }
@@ -209,12 +261,13 @@ public:
             Node    *TempHead;
 
             if (!Head)
-                return 1;
+                return (1);
             TempHead = Head;
             Head = Head->next;
             if (Head)
                 Head->prev = nullptr;
             delete TempHead;
+            _decreaseSize();
 
             return 0;
         }
@@ -237,6 +290,7 @@ public:
                 ToDeleteNode->prev->next = ToDeleteNode->next;
 
             delete ToDeleteNode;
+            _decreaseSize();
             return 0;
         }
 
@@ -250,6 +304,7 @@ public:
             {
                 delete Head;
                 Head = nullptr;
+                _decreaseSize();
                 return 0;
             }
 
@@ -261,10 +316,124 @@ public:
 
             BeforeLastNode->next = nullptr;
             delete LastNode;
+            _decreaseSize();
 
             return 0;
         }
 
+
+        long    Size()
+        {
+            return (_size);
+        }
+
+
+        short   isEmpty()
+        {
+            return (Size() == 0);
+        }
+
+
+        short   Clear()
+        {
+            while (Size() > 0)
+                deleteFirstNode();
+            
+            return 0;
+        }
+
+
+        short Reverse()
+        {
+            if (!Head)
+                return 1;
+
+            Node *current = Head;
+            Node *newHead = nullptr;
+            Node *temp = nullptr;
+
+            while (current)
+            {
+                temp = current->prev;
+                current->prev = current->next;
+                current->next = temp;
+
+                newHead = current;
+                current = current->prev;
+            }
+            if (newHead)
+                Head = newHead;
+
+            return (0);
+        }
+
+
+        Node    *GetNode(long index)
+        {
+            if ((!Head) || (index >= Size()) || (index < 0))
+                return (nullptr);
+
+            long    currentIndex = 0;
+            Node    *Current = Head;
+
+            while (Current && currentIndex < index)
+            {
+                ++currentIndex;
+                Current = Current->next;
+            }
+
+            return (Current);
+        }
+
+
+        // std::optional<T> GetItem(long index)
+        T   GetItem(long index)
+        {
+            Node    *TheNode = GetNode(index);
+
+            if (!TheNode)
+                throw std::out_of_range("((( Index Is Wrong !!! !!! Fix it. ))).\n");
+
+            return (TheNode->data);
+
+            /*
+            if (!TheNode)
+                 return (std::nullopt)        // #include <optional> to indicate that the result might be invalid.
+             if (!TheNode)
+                 return (NULL);               // Also this works we can return NULL inside T Template !!
+                 */
+        }
+
+
+        short   UpdateItem(long index, T NewData)
+        {
+            Node *TheNode = GetNode(index);
+
+            if (!TheNode)
+                return 1;       // Error Wrong Index.
+            TheNode->data = NewData;
+
+            return (0);           // Finished Successfully.
+        }
+
+
+
+protected:
+
+
+        long    _size = 0;
+
+                                                                                                                                    
+        void    _increaseSize()
+        {
+            ++(_size);
+        }
+
+
+        void    _decreaseSize()
+        {
+            --(_size);
+        }
 
 
 private:
@@ -288,7 +457,8 @@ private:
                 std::cout << Current->next->data << "\n";
             else
                 std::cout << "NULL\n";
-        }                                                                                                                                        
+        }  
+
 
 
 };
