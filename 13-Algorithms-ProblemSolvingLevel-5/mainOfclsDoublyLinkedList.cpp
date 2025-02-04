@@ -357,21 +357,21 @@ int main ()
 {
     system("clear");
 
-    // essentialsTest();
+    essentialsTest();
 
-    // sizeTests();
+    sizeTests();
 
-    // isEmptyTests();
+    isEmptyTests();
 
-    // clearTests();
+    clearTests();
 
-    // reverseTests();
+    reverseTests();
 
-    // GetNodeTests();
+    GetNodeTests();
 
-    // GetItemTests();
+    GetItemTests();
 
-    // UpdateItemTests();
+    UpdateItemTests();
     
     insertAfterUsingIndex();
 

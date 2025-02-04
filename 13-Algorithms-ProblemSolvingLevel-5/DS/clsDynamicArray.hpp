@@ -22,7 +22,7 @@ public:
 
         clsDynamicArray (long size = 0)
         {
-            (this->_size) = ((size <= 0) ?    0 : size);
+            (this->_size) = ((size < 0) ?    0 : size);
             _DynamicArr = new T[_size];
 
             /*
@@ -36,7 +36,10 @@ public:
 
         ~clsDynamicArray()
         {
-            delete[] _DynamicArr;
+            if (_DynamicArr)
+                delete[] _DynamicArr;
+            if (_TempDynmcArr)
+                delete[] _TempDynmcArr;
         }
 
 
@@ -62,16 +65,16 @@ public:
 
         short   SetItem(long index, T data)
         {
-            if (_isIndexOutOfRange(index))
+            if (_isIndexOutOfRange(index) || isEmpty())
                 return (1);                 //  Out Failed Out of Range.
-            if (!isEmpty())
-                _DynamicArr[index] = data;
+
+            _DynamicArr[index] = data;
 
             return (0);
         }
 
 
-        void    PrintArray()
+        void    Print()
         {
             for (long i = 0 ; i < Size() ; i++)
                 std::cout << this->_DynamicArr[i] << "    ";
@@ -176,8 +179,8 @@ public:
             
             delete[] _DynamicArr;
             _DynamicArr = _TempDynmcArr;
-
             SetSize(Size() - 1);
+
             return (0);
         }
 
@@ -194,7 +197,7 @@ public:
         }
 
 
-        long    Find(T Item)
+        long    Find(T Item)        // Will Return Index
         {
             for (long index = 0 ; index < Size() ; index++)
             {

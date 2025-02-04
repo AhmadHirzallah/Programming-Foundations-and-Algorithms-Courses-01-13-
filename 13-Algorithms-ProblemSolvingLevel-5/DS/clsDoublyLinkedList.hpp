@@ -61,7 +61,7 @@ public:
                 return ;
             }
 
-            if (Current && !Current->prev)
+            if (Current && !Current->prev)  // Printing Previous Node.
                 std::cout << "NULL";
                 
             while (Current)
@@ -457,7 +457,7 @@ private:
                 std::cout << Current->next->data << "\n";
             else
                 std::cout << "NULL\n";
-        }  
+        }
 
 
 
