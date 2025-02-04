@@ -27,3 +27,11 @@ This repository showcases my progress in **C, C++, OOP, Data Structures, and Alg
 - **Languages:** C, C++
 - **Concepts:** OOP, Data Structures, Clean Code Practices
 - **Problem-Solving:** Algorithm design, competitive programming
+
+<hr>
+
+<p align="center">
+  <img src="https://cdn.fs.teachablecdn.com/oQ1J1p0FRJmJ86YPPKrr" alt="Programming Advices Roadmap" width="70%">
+</p>
+
+
